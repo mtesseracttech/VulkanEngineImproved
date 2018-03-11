@@ -13,13 +13,22 @@ namespace mt
     class Display
     {
     private:
-        //The vulkan instance
+        /*
+         * The vulkan instance handle.
+         * Used for creation of the Physical Device
+         */
         vk::Instance m_instance = nullptr;
+
+        /*
+         * Reference to the VulkanDebug class.
+         * Contains functions to let Vulkan give us debug reports.
+         */
         VulkanDebug m_debug;
 
-
+        /*
+         * Creator and destructor
+         */
         Display() = default;
-
         virtual ~Display() = default;
 
     protected:
@@ -33,22 +42,30 @@ namespace mt
          */
         void createInstance();
 
-        std::vector<const char*> getRequiredExtensions();
+        /*
+         * Creates the VulkanDebug member variable, which contains callbacks from vulkan, to aid in debugging
+         */
+        void createDebug();
 
+        /*
+         * Gets the required device extensions to be initialized by Vulkan. Could theoretically be overwritten depending on what you want to use the renderer for.
+         */
+        std::vector<const char*> getRequiredExtensions();
     public:
         /*
-         * C++11 Style Singleton, returns an instance of the device class
+         * C++11 style singleton, returns an instance of the device class
          */
         static Display &get();
 
         /*
          * Initializes the display device and render window
          */
-        void Initialize();
+        void initialize();
 
+        /*
+         * Gets a references from the vulkan handle
+         */
         vk::Instance &getVulkanInstance();
-
-        void createDebug();
     };
 }
 

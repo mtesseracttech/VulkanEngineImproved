@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.9)
 project(VulkanEngineFixed)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(SOURCE_FILES src/EntryPoint.cpp src/Core/Renderer/Vulkan/Device/Display.cpp src/Core/Renderer/Vulkan/Device/Display.hpp src/Core/Renderer/Vulkan/Window/RenderWindow.cpp src/Core/Renderer/Vulkan/Window/RenderWindow.hpp src/Core/Base.cpp src/Core/Base.hpp src/Core/Utility/Logger.cpp src/Core/Utility/Logger.hpp src/Core/Renderer/Vulkan/Queue/DeviceQueueFamilies.cpp src/Core/Renderer/Vulkan/Queue/DeviceQueueFamilies.hpp src/Core/Renderer/Vulkan/Queue/SurfaceQueueFamilies.cpp src/Core/Renderer/Vulkan/Queue/SurfaceQueueFamilies.hpp src/Core/Renderer/Vulkan/Debug/VulkanDebug.cpp src/Core/Renderer/Vulkan/Debug/VulkanDebug.hpp)
+set(SOURCE_FILES src/EntryPoint.cpp src/Core/Renderer/Vulkan/Device/Display.cpp src/Core/Renderer/Vulkan/Device/Display.hpp src/Core/Renderer/Vulkan/Window/RenderWindow.cpp src/Core/Renderer/Vulkan/Window/RenderWindow.hpp src/Core/Base.cpp src/Core/Base.hpp src/Core/Utility/Logger.cpp src/Core/Utility/Logger.hpp src/Core/Renderer/Vulkan/Queue/DeviceQueueFamilies.cpp src/Core/Renderer/Vulkan/Queue/DeviceQueueFamilies.hpp src/Core/Renderer/Vulkan/Queue/SurfaceQueueFamilies.cpp src/Core/Renderer/Vulkan/Queue/SurfaceQueueFamilies.hpp src/Core/Renderer/Vulkan/Debug/VulkanDebug.cpp src/Core/Renderer/Vulkan/Debug/VulkanDebug.hpp src/Core/Input/KeyInput.cpp src/Core/Input/KeyInput.hpp src/Core/Input/MouseInput.cpp src/Core/Input/MouseInput.hpp src/Core/Maths/Time/Timer.cpp src/Core/Maths/Time/Timer.hpp src/Core/Input/Input.cpp src/Core/Input/Input.hpp)
 
 add_executable(VulkanEngineFixed ${SOURCE_FILES})
 

@@ -15,7 +15,7 @@ namespace mt
         return instance;
     }
 
-    void Display::Initialize()
+    void Display::initialize()
     {
         createWindow();
         createInstance();
@@ -36,8 +36,6 @@ namespace mt
         {
             throw std::runtime_error("Validation layers requested, but not available!");
         }
-
-        //std::cout << "Validation Layers: enabled: " <<  m_debug.getEnableValidationLayers() << " supported: " << m_debug.checkValidationLayerSupport() << std::endl << std::flush;
 
         auto extensions = getRequiredExtensions();
 
