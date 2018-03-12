@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <Core/Utility/Logger.hpp>
+#include <sstream>
 #include "VulkanDebug.hpp"
 
 namespace mt
@@ -47,28 +48,33 @@ namespace mt
     {
         if (p_reportflags & vk::DebugReportFlagBitsEXT::eError)
         {
-            std::cerr << "[VK-ERR][" << p_layerPrefix << "] " << p_code << " - " << p_message
-                      << std::endl;
+            std::stringstream msg;
+            msg << "[VK-" << p_layerPrefix << "] (" << p_code << ") - " << p_message;
+            Logger::log(msg.str(), LogError);
         }
         else if (p_reportflags & vk::DebugReportFlagBitsEXT::eWarning)
         {
-            std::cerr << "[VK-WRN][" << p_layerPrefix << "] " << p_code << " - " << p_message
-                      << std::endl;
+            std::stringstream msg;
+            msg << "[VK-" << p_layerPrefix << "] (" << p_code << ") - " << p_message;
+            Logger::log(msg.str(), LogError);
         }
         else if (p_reportflags & vk::DebugReportFlagBitsEXT::ePerformanceWarning)
         {
-            std::cerr << "[VK-PRF][" << p_layerPrefix << "] " << p_code << " - " << p_message
-                      << std::endl;
+            std::stringstream msg;
+            msg << "[VK-" << p_layerPrefix << "] (" << p_code << ") - " << p_message;
+            Logger::log(msg.str(), LogError);
         }
         else if (p_reportflags & vk::DebugReportFlagBitsEXT::eInformation)
         {
-            std::cout << "[VK-INF][" << p_layerPrefix << "] " << p_code << " - " << p_message
-                      << std::endl;
+            std::stringstream msg;
+            msg << "[VK-" << p_layerPrefix << "] (" << p_code << ") - " << p_message;
+            Logger::log(msg.str(), LogInfo);
         }
         else if (p_reportflags & vk::DebugReportFlagBitsEXT::eDebug)
         {
-            std::cout << "[VK-DBG][" << p_layerPrefix << "] " << p_code << " - " << p_message
-                      << std::endl;
+            std::stringstream msg;
+            msg << "[VK-" << p_layerPrefix << "] (" << p_code << ") - " << p_message;
+            Logger::log(msg.str(), LogDebug);
         }
     }
 

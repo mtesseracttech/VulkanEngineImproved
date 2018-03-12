@@ -7,6 +7,7 @@
 
 #include <vulkan/vulkan.hpp>
 #include <Core/Renderer/Vulkan/Debug/VulkanDebug.hpp>
+#include "Device.hpp"
 
 namespace mt
 {
@@ -24,6 +25,11 @@ namespace mt
          * Contains functions to let Vulkan give us debug reports.
          */
         VulkanDebug m_debug;
+
+        /*
+         * A wrapped for the device (both physical and logical), including some convenience functionality
+         */
+        Device m_device;
 
         /*
          * Creator and destructor
@@ -66,6 +72,32 @@ namespace mt
          * Gets a references from the vulkan handle
          */
         vk::Instance &getVulkanInstance();
+
+        /*
+         * Gets a reference to the physical device
+         */
+        vk::PhysicalDevice& getPhysicalDevice();
+
+        /*
+         * Gets a reference to the logical device
+         */
+        vk::Device& getDevice();
+
+
+        /*
+         * Gets a reference to the wrapped device
+         */
+        Device& getWrappedDevice();
+
+        void cleanup();
+
+        void createDevice();
+
+        void createSurface();
+
+        int getDeviceScore(vk::PhysicalDevice p_physicalDevice);
+
+        void createLogicalDevice(vk::PhysicalDevice p_device);
     };
 }
 

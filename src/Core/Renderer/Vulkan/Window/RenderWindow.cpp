@@ -5,6 +5,8 @@
 #include <Core/Renderer/Vulkan/Device/Display.hpp>
 #include "RenderWindow.hpp"
 #include <exception>
+#include <iostream>
+#include <Core/Utility/Logger.hpp>
 
 namespace mt
 {
@@ -27,12 +29,20 @@ namespace mt
 
         m_window = glfwCreateWindow(p_windowSize.x, p_windowSize.y, p_windowTitle.c_str(),
                                     (p_fullscreen ? glfwGetPrimaryMonitor() : nullptr), nullptr);
+
+        if(m_window) Logger::log("Window was successfully created");
+    }
+
+    void RenderWindow::destroy()
+    {
+        cleanupSurface();
+        glfwDestroyWindow(m_window);
+        glfwTerminate();
     }
 
     void RenderWindow::createSurface()
     {
-        vk::Instance instance = Display::get().getVulkanInstance();
-        assert(instance);
+        auto instance = Display::get().getVulkanInstance();
 
         VkSurfaceKHR surface;
 
@@ -44,9 +54,12 @@ namespace mt
         m_surface = surface;
     }
 
-    GLFWwindow * RenderWindow::getGlfwWindowHandle()
-    {
-        return m_window;
+    void RenderWindow::cleanupSurface(){
+        if(m_surface)
+        {
+            Display::get().getVulkanInstance().destroySurfaceKHR(m_surface);
+        }
+        m_surface = nullptr;
     }
 
     std::vector<const char *> RenderWindow::getRequiredExtensions()
@@ -59,6 +72,32 @@ namespace mt
 
         return extensions;
     }
+
+    bool RenderWindow::shouldWindowClose()
+    {
+        return static_cast<bool>(glfwWindowShouldClose(m_window));
+    }
+
+    GLFWwindow * RenderWindow::getGlfwWindowHandle()
+    {
+        //std::cout << "Window handle: " << m_window << std::endl;
+
+        if(m_window == nullptr){
+            std::cout << m_window << std::endl;
+        }
+        return m_window;
+    }
+
+    vk::SurfaceKHR &RenderWindow::getSurface()
+    {
+        return m_surface;
+    }
+
+    void RenderWindow::close()
+    {
+        glfwWindowShouldClose(m_window);
+    }
+
 
 }
 

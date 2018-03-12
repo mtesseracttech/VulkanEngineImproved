@@ -10,20 +10,23 @@
 #include <chrono>
 #include <cstdlib>
 
-class Timer
+namespace mt
 {
-private:
-    typedef std::chrono::high_resolution_clock chronoClock;
-    typedef std::chrono::duration<double, std::ratio<1> > chronoSecond;
-    std::chrono::time_point<std::chrono::high_resolution_clock> m_start;
-    
-public:
-    Timer();
+    class Timer
+    {
+    private:
+        typedef std::chrono::high_resolution_clock chronoClock;
+        typedef std::chrono::duration<double, std::ratio<1> > chronoSecond;
+        std::chrono::time_point<std::chrono::high_resolution_clock> m_start;
 
-    void reset();
+    public:
+        Timer();
 
-    double getElapsed() const;
-};
+        void reset();
+
+        double getElapsed() const;
+    };
+}
 
 
 #endif //VULKANENGINEFIXED_TIMER_HPP

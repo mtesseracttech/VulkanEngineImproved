@@ -7,6 +7,13 @@
 
 namespace mt
 {
+    bool                 KeyInput::m_prepared = false;
+    std::map<int, float> KeyInput::m_keys;
+    Timer                KeyInput::m_timer;
+    double               KeyInput::m_timeNow;
+    double               KeyInput::m_timeStep = 1.0 / 60;
+
+
     void KeyInput::initialize()
     {
         if (m_prepared) return;

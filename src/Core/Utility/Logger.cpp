@@ -17,7 +17,7 @@ namespace mt
     void Logger::printLog(std::string m_prefix, std::string p_message)
     {
         std::stringstream output;
-        output << "LOG: " << "[" << m_prefix << "]" << p_message;
+        output << "[" << m_prefix << "] " << p_message;
         std::cout << output.str() << std::endl;
     }
 

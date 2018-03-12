@@ -7,12 +7,21 @@
 
 namespace mt
 {
+    bool                 MouseInput::m_prepared = false;
+    std::map<int, float> MouseInput::m_buttons;
+    Timer                MouseInput::m_timer;
+    double               MouseInput::m_timeNow;
+    double               MouseInput::m_timeStep = 1.0 / 60;
+    glm::vec2            MouseInput::m_position;
+
+
     void MouseInput::initialize()
     {
-        if(m_prepared) return;
+        if (m_prepared) return;
 
         auto window = RenderWindow::get().getGlfwWindowHandle();
         assert(window);
+
         glfwSetMouseButtonCallback(window, MouseInput::mouseButtonCallback);
         glfwSetCursorPosCallback(window, MouseInput::mousePositionCallback);
 
@@ -23,7 +32,8 @@ namespace mt
 
     void MouseInput::mouseButtonCallback(GLFWwindow *p_window, int p_button, int p_action, int p_mods)
     {
-        switch (p_action){
+        switch (p_action)
+        {
             case GLFW_PRESS:
                 buttonDown(p_button);
                 break;
@@ -60,7 +70,7 @@ namespace mt
         }
     }
 
-    glm::vec2 MouseInput::Position()
+    glm::vec2 MouseInput::position()
     {
         return m_position;
     }

@@ -139,11 +139,11 @@ namespace mt{
 
     class KeyInput
     {
-        static bool                 m_prepared = false;
+        static bool                 m_prepared;
         static std::map<int, float> m_keys;
         static Timer                m_timer;
         static double               m_timeNow;
-        static double               m_timeStep = 1.0 / 60;
+        static double               m_timeStep;
 
         static void keyCallback(GLFWwindow *p_window, int p_key, int p_scancode, int p_action, int p_mod);
 
@@ -155,7 +155,7 @@ namespace mt{
 
         static void updateTimeNow(double p_timeNow);
 
-        friend class Input;
+        friend class Base;
 
 
     public:
