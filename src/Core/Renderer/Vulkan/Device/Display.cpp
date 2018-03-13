@@ -42,7 +42,7 @@ namespace mt
     {
         Logger::log("Creating a Vulkan Instance");
 
-        if (m_debug.getEnableValidationLayers() && !m_debug.checkValidationLayerSupport())
+        if (VulkanDebug::m_enableValidationLayers && !m_debug.checkValidationLayerSupport())
         {
             throw std::runtime_error("Validation layers requested, but not available!");
         }
@@ -62,10 +62,10 @@ namespace mt
         createInfo.ppEnabledExtensionNames = extensions.data();
 
 
-        if (m_debug.getEnableValidationLayers())
+        if (VulkanDebug::m_enableValidationLayers)
         {
-            createInfo.enabledLayerCount   = static_cast<uint32_t>(m_debug.getValidationLayers().size());
-            createInfo.ppEnabledLayerNames = m_debug.getValidationLayers().data();
+            createInfo.enabledLayerCount   = static_cast<uint32_t>(VulkanDebug::m_validationLayers.size());
+            createInfo.ppEnabledLayerNames = VulkanDebug::m_validationLayers.data();
         }
         else
         {
@@ -79,7 +79,7 @@ namespace mt
     {
         std::vector<const char*> requiredExtensions = RenderWindow::get().getRequiredExtensions();
 
-        if (m_debug.getEnableValidationLayers()) requiredExtensions.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
+        if (VulkanDebug::m_enableValidationLayers) requiredExtensions.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
 
         return requiredExtensions;
     }
@@ -162,7 +162,8 @@ namespace mt
 
         int score = 0;
 
-        SurfaceQueueFamilies queueFamilies(p_physicalDevice, RenderWindow::get().getSurface());
+        SurfaceQueueFamilies queueFamilies;
+        queueFamilies.create(p_physicalDevice, RenderWindow::get().getSurface());
 
         //If the queue families are not complete, using the device isn't going to happen
         if (!queueFamilies.isComplete()) return 0;
@@ -203,6 +204,10 @@ namespace mt
     void Display::createLogicalDevice(vk::PhysicalDevice p_device)
     {
         Logger::log("Creating a logical device");
+
+        std::vector<const char*> deviceExtensions {VK_KHR_SWAPCHAIN_EXTENSION_NAME};
+
+        m_device.create(p_device, deviceExtensions);
     }
 
     vk::Instance& Display::getVulkanInstance()

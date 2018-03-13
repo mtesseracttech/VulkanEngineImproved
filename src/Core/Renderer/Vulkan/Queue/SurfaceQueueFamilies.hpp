@@ -15,7 +15,9 @@ namespace mt
         int m_graphicsFamily = -1;
         int m_presentFamily  = -1;
     public:
-        SurfaceQueueFamilies(vk::PhysicalDevice p_physicalDevice, vk::SurfaceKHR p_surface);
+        SurfaceQueueFamilies() = default;
+
+        void create(vk::PhysicalDevice p_physicalDevice, vk::SurfaceKHR p_surface);
 
         bool isComplete();
 

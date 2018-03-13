@@ -6,6 +6,7 @@
 #define VULKANENGINEFIXED_DEVICE_HPP
 
 #include <vulkan/vulkan.hpp>
+#include <Core/Renderer/Vulkan/Queue/SurfaceQueueFamilies.hpp>
 
 namespace mt
 {
@@ -14,8 +15,17 @@ namespace mt
     private:
         vk::PhysicalDevice m_physicalDevice;
         vk::Device         m_logicalDevice;
+
+        SurfaceQueueFamilies m_queueFamilyIndices;
+
+        struct{
+            vk::Queue graphics;
+            vk::Queue present;
+        } m_queues;
+
+        void createQueues();
     public:
-        void create(vk::PhysicalDevice p_device);
+        void create(vk::PhysicalDevice p_physicalDevice, std::vector<const char*> p_enabledExtensions);
 
         vk::PhysicalDevice& getPhysicalDevice();
 

@@ -9,13 +9,31 @@
 
 namespace mt
 {
+
+#ifdef NDEBUG
+    const bool VulkanDebug::m_enableValidationLayers = false;
+#else
+    const bool VulkanDebug::m_enableValidationLayers = true;
+#endif //NDEBUG
+
+#ifdef __MINGW32__
+    const std::vector<const char*> VulkanDebug::m_validationLayers = {
+            "VK_LAYER_LUNARG_standard_validation"
+    };
+#else
+    const std::vector<const char *> VulkanDebug::m_validationLayers = {};
+#endif //__MINGW32__
+
+
+
+
     void VulkanDebug::create(vk::Instance p_instance)
     {
         assert(p_instance);
 
         m_instance = p_instance;
 
-        if (!getEnableValidationLayers()) return;
+        if (!m_enableValidationLayers) return;
 
         vk::DebugReportCallbackCreateInfoEXT callbackCreateInfo;
         callbackCreateInfo.flags = vk::DebugReportFlagBitsEXT::eWarning |
@@ -124,16 +142,6 @@ namespace mt
                 "vkDestroyDebugReportCallbackEXT"));
 
         if (func) func(instance, callback, allocator);
-    }
-
-    bool VulkanDebug::getEnableValidationLayers()
-    {
-        return m_enableValidationLayers;
-    }
-
-    const std::vector<const char *>& VulkanDebug::getValidationLayers()
-    {
-        return m_validationLayers;
     }
 
     bool VulkanDebug::checkValidationLayerSupport()
