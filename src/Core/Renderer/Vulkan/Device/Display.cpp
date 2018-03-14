@@ -233,13 +233,42 @@ namespace mt
     void Display::cleanup()
     {
         Logger::log("Wolfsbane is shutting down, cleaning up");
-        //destroyDevice();
-        //destroySurface();
-        //destroyDebug();
-        //destroyInstance();
-        //destroyWindow();
+        destroyDevice();
+        destroySurface();
+        destroyDebug();
+        destroyInstance();
+        destroyWindow();
     }
 
+    void Display::destroyDevice()
+    {
+        Logger::log("Destroying the Vulkan device");
+        m_device.destroy();
+    }
+
+    void Display::destroySurface()
+    {
+        Logger::log("Destroying the Window Surface");
+        RenderWindow::get().destroySurface();
+    }
+
+    void Display::destroyDebug()
+    {
+        Logger::log("Destroying the Vulkan Debug Callback");
+        m_debug.destroy();
+    }
+
+    void Display::destroyInstance()
+    {
+        Logger::log("Destroying the Vulkan Instance");
+        m_instance.destroy();
+    }
+
+    void Display::destroyWindow()
+    {
+        Logger::log("Destroying the Render Window");
+        RenderWindow::get().destroy();
+    }
 }
 
 

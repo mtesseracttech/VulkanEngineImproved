@@ -21,8 +21,6 @@ namespace mt
         auto& surface                                              = RenderWindow::get().getSurface();
         assert(surface && "Surface was null, can't create any queues without it");
 
-        std::cout << m_queueFamilyIndices.getPresentFamily() << " " << m_queueFamilyIndices.getGraphicsFamily() << std::endl;
-
         m_queueFamilyIndices.create(m_physicalDevice, surface);
 
         std::vector<vk::DeviceQueueCreateInfo> queueCreateInfoList;
@@ -33,8 +31,6 @@ namespace mt
 
         for (auto queueFamily : uniqueQueueFamilies)
         {
-            std::cout << queueFamily << std::endl;
-
             VkDeviceQueueCreateInfo queueCreateInfo = {};
             queueCreateInfo.sType            = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
             queueCreateInfo.queueFamilyIndex = queueFamily;
@@ -95,5 +91,10 @@ namespace mt
         Logger::log("Creating queues");
         m_queues.graphics = m_logicalDevice.getQueue(m_queueFamilyIndices.getGraphicsFamily(), 0);
         m_queues.present  = m_logicalDevice.getQueue(m_queueFamilyIndices.getPresentFamily(), 0);
+    }
+
+    void Device::destroy()
+    {
+        m_logicalDevice.destroy();
     }
 }

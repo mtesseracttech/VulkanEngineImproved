@@ -27,5 +27,4 @@ namespace mt
     };
 }
 
-
 #endif //VULKANENGINEFIXED_SURFACEQUEUEFAMILIES_HPP

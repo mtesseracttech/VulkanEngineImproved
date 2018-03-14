@@ -35,6 +35,7 @@ namespace mt
          * Creator and destructor
          */
         Display() = default;
+
         virtual ~Display() = default;
 
     protected:
@@ -54,14 +55,61 @@ namespace mt
         void createDebug();
 
         /*
+         * Enumerates the GPUs connected to the system and picks the best one. Then passes the best one into
+         * createLogicalDevice
+         */
+        void createDevice();
+
+        /*
+         * Creates a wrapped device out of the physical device, which on its turn creates a logical device and queues
+         */
+        void createLogicalDevice(vk::PhysicalDevice p_device);
+
+        /*
+         * Creates the window surface for the window to display
+         */
+        void createSurface();
+
+        /*
+         * Gracefully destroys the Vulkan device
+         */
+        void destroyDevice();
+
+        /*
+         * Gracefully destroys the renderer window surface
+         */
+        void destroySurface();
+
+        /*
+         * Destroys the Vulkan debug callbacks
+         */
+        void destroyDebug();
+
+        /*
+         * Destroys the Vulkan instance
+         */
+        void destroyInstance();
+
+        /*
+         * Destroys the Renderer window
+         */
+        void destroyWindow();
+
+        /*
+         * Gives a device score based on a few properties like device type and capabilities
+         */
+        int getDeviceScore(vk::PhysicalDevice p_physicalDevice);
+
+        /*
          * Gets the required device extensions to be initialized by Vulkan. Could theoretically be overwritten depending on what you want to use the renderer for.
          */
         std::vector<const char*> getRequiredExtensions();
+
     public:
         /*
          * C++11 style singleton, returns an instance of the device class
          */
-        static Display &get();
+        static Display& get();
 
         /*
          * Initializes the display device and render window
@@ -69,9 +117,14 @@ namespace mt
         void initialize();
 
         /*
+         * Cleans up the components that make up the display device and render window
+         */
+        void cleanup();
+
+        /*
          * Gets a references from the vulkan handle
          */
-        vk::Instance &getVulkanInstance();
+        vk::Instance& getVulkanInstance();
 
         /*
          * Gets a reference to the physical device
@@ -88,16 +141,6 @@ namespace mt
          * Gets a reference to the wrapped device
          */
         Device& getWrappedDevice();
-
-        void cleanup();
-
-        void createDevice();
-
-        void createSurface();
-
-        int getDeviceScore(vk::PhysicalDevice p_physicalDevice);
-
-        void createLogicalDevice(vk::PhysicalDevice p_device);
     };
 }
 

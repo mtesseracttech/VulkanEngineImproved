@@ -13,10 +13,11 @@ namespace mt
 {
     class RenderWindow
     {
-        GLFWwindow *m_window = nullptr;
-        vk::SurfaceKHR m_surface = nullptr;
+        GLFWwindow     * m_window = nullptr;
+        vk::SurfaceKHR m_surface  = nullptr;
 
         RenderWindow() = default;
+
     public:
 
         ~RenderWindow() = default;
@@ -33,13 +34,13 @@ namespace mt
 
         bool shouldWindowClose();
 
-        GLFWwindow * getGlfwWindowHandle();
+        GLFWwindow* getGlfwWindowHandle();
 
         vk::SurfaceKHR& getSurface();
 
-        void cleanupSurface();
-
         void close();
+
+        void destroySurface();
     };
 
 }

@@ -32,6 +32,8 @@ namespace mt
         vk::Device& getLogicalDevice();
 
         static std::string getDeviceTypeName(vk::PhysicalDeviceType p_type);
+
+        void destroy();
     };
 }
 
