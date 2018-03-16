@@ -1,0 +1,15 @@
+//
+// Created by MTesseracT on 16-3-2018.
+//
+
+#ifndef VULKANENGINEFIXED_FRAMEBUFFER_HPP
+#define VULKANENGINEFIXED_FRAMEBUFFER_HPP
+
+
+class FrameBuffer
+{
+
+};
+
+
+#endif //VULKANENGINEFIXED_FRAMEBUFFER_HPP

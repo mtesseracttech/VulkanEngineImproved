@@ -16,15 +16,49 @@ namespace mt
     void Base::initialize()
     {
         Logger::log("Initializing Wolfsbane");
+        initializeWindow();
+        initializeDisplay();
+        initializeInput();
+        initializeTimers();
+        initializeRenderer();
+    }
+
+    void Base::initializeWindow()
+    {
+        Logger::log("Creating a Render Window");
+        auto& window = RenderWindow::get();
+        window.create(glm::vec2(1280, 720), false, "Wolfsbane Engine");
+        glfwSetWindowUserPointer(window.getGlfwWindowHandle(), this);
+        //Todo: Adding the OnWindowResized Callback
+    }
+
+    void Base::initializeDisplay()
+    {
         Display::get().initialize();
+    }
+
+    void Base::initializeInput()
+    {
         MouseInput::initialize();
         KeyInput::initialize();
-        initializeTimers();
     }
+
+    void Base::initializeTimers()
+    {
+        GameTimer::reset();
+        m_lagTimer.reset();
+    }
+
+    void Base::initializeRenderer()
+    {
+        m_renderer.initialize();
+    }
+
 
     void Base::run()
     {
         setGameSpeed(30);
+        setRenderSpeed(60);
 
         auto& window = RenderWindow::get();
 
@@ -57,12 +91,6 @@ namespace mt
         }
     }
 
-    void Base::initializeTimers()
-    {
-        GameTimer::reset();
-        m_lagTimer.reset();
-    }
-
     void Base::setGameSpeed(int p_tps)
     {
         if (p_tps > 0)
@@ -72,8 +100,30 @@ namespace mt
         }
     }
 
+    void Base::setRenderSpeed(int p_fps)
+    {
+        if (p_fps > 0)
+        {
+            m_framesPerSecond = p_fps;
+            m_timePerFrame    = 1.0 / p_fps;
+        }
+    }
+
     void Base::cleanup()
     {
+        cleanupDevice();
+        cleanupWindow();
+    }
+
+    void Base::cleanupWindow()
+    {
+        Logger::log("Cleaning up the display window");
+        RenderWindow::get().destroy();
+    }
+
+    void Base::cleanupDevice()
+    {
+        Logger::log("Cleaning up the rendering device");
         Display::get().cleanup();
     }
 }

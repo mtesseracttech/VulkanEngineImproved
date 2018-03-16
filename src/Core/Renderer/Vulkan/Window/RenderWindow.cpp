@@ -38,6 +38,7 @@ namespace mt
     {
         destroySurface();
         glfwDestroyWindow(m_window);
+        m_window = nullptr;
         glfwTerminate();
     }
 
@@ -74,10 +75,6 @@ namespace mt
 
     GLFWwindow* RenderWindow::getGlfwWindowHandle()
     {
-        if (m_window == nullptr)
-        {
-            std::cout << m_window << std::endl;
-        }
         return m_window;
     }
 
@@ -102,6 +99,16 @@ namespace mt
 
     }
 
+    glm::ivec2 RenderWindow::getSize()
+    {
+        int x, y;
+        glfwGetWindowSize(m_window, &x, &y);
+        return glm::ivec2(x, y);
+    }
 
+    void RenderWindow::setTitle(std::string p_windowTitle)
+    {
+        glfwSetWindowTitle(m_window, p_windowTitle.c_str());
+    }
 }
 

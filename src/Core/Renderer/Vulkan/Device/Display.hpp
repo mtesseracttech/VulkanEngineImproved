@@ -40,11 +40,6 @@ namespace mt
 
     protected:
         /*
-         * Initializes GLFW and creates a window if none exists yet and sets the user pointer
-         */
-        void createWindow();
-
-        /*
          * Creates the vulkan instance with the device extensions in Device and validation layers from VulkanDebug
          */
         void createInstance();
@@ -135,7 +130,6 @@ namespace mt
          * Gets a reference to the logical device
          */
         vk::Device& getDevice();
-
 
         /*
          * Gets a reference to the wrapped device

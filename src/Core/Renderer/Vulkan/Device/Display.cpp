@@ -21,22 +21,13 @@ namespace mt
 
     void Display::initialize()
     {
-        createWindow();
+        //createWindow();
         createInstance();
         createDebug();
         createSurface();
         createDevice();
     }
 
-    void Display::createWindow()
-    {
-        Logger::log("Creating a Render Window");
-
-        auto& window = RenderWindow::get();
-        window.create(glm::vec2(1280, 720), false, "Wolfsbane Engine");
-        glfwSetWindowUserPointer(window.getGlfwWindowHandle(), this);
-        //Todo: Adding the OnWindowResized Callback
-    }
 
     void Display::createInstance()
     {
@@ -237,7 +228,7 @@ namespace mt
         destroySurface();
         destroyDebug();
         destroyInstance();
-        destroyWindow();
+        //destroyWindow();
     }
 
     void Display::destroyDevice()
@@ -262,12 +253,6 @@ namespace mt
     {
         Logger::log("Destroying the Vulkan Instance");
         m_instance.destroy();
-    }
-
-    void Display::destroyWindow()
-    {
-        Logger::log("Destroying the Render Window");
-        RenderWindow::get().destroy();
     }
 }
 
