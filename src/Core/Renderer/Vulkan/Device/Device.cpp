@@ -61,6 +61,8 @@ namespace mt
 
         m_logicalDevice = m_physicalDevice.createDevice(deviceCreateInfo);
 
+        createCommandPools();
+
         createQueues();
     }
 
@@ -96,5 +98,46 @@ namespace mt
     void Device::destroy()
     {
         m_logicalDevice.destroy();
+    }
+
+    vk::CommandBuffer Device::createCommandBuffer(vk::CommandBufferLevel p_level, bool p_begin, CommandPoolType p_poolType)
+    {
+        assert(m_logicalDevice);
+
+        vk::CommandBufferAllocateInfo commandBufferAllocateInfo;
+        commandBufferAllocateInfo.commandBufferCount = 1;
+        commandBufferAllocateInfo.level              = p_level;
+
+        switch (p_poolType)
+        {
+            case GraphicsPool :
+                commandBufferAllocateInfo.commandPool = m_commandPools.graphics;
+                break;
+            case PresentPool:
+                commandBufferAllocateInfo.commandPool = m_commandPools.present;
+                break;
+        }
+
+        vk::CommandBuffer commandBuffer = m_logicalDevice.allocateCommandBuffers(commandBufferAllocateInfo)[0];
+
+        if (p_begin)
+        {
+            vk::CommandBufferBeginInfo beginInfo;
+            commandBuffer.begin(beginInfo);
+        }
+
+        return commandBuffer;
+
+    }
+
+    void Device::createCommandPools()
+    {
+        vk::CommandPoolCreateInfo poolCreateInfo;
+        poolCreateInfo.flags            = vk::CommandPoolCreateFlagBits::eResetCommandBuffer;
+        poolCreateInfo.queueFamilyIndex = m_queueFamilyIndices.getGraphicsFamily();
+        m_commandPools.graphics         = m_logicalDevice.createCommandPool(poolCreateInfo);
+
+        poolCreateInfo.queueFamilyIndex = m_queueFamilyIndices.getPresentFamily();
+        m_commandPools.present          = m_logicalDevice.createCommandPool(poolCreateInfo);
     }
 }

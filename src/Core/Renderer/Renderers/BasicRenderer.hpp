@@ -7,11 +7,13 @@
 
 
 #include <Core/Renderer/Vulkan/Swapchain/Swapchain.hpp>
+#include <Core/Renderer/Vulkan/RenderPass/RenderPass.hpp>
 
 namespace mt{
     class BasicRenderer
     {
         Swapchain m_swapchain;
+        RenderPass m_renderPass;
 
     public:
         void initialize();

@@ -4,12 +4,15 @@
 
 #include <Core/Renderer/Vulkan/Device/Display.hpp>
 #include <Core/Renderer/Vulkan/Window/RenderWindow.hpp>
+#include <Core/Utility/Logger.hpp>
 #include "Swapchain.hpp"
 
 namespace mt
 {
     void Swapchain::create()
     {
+        Logger::log("Creating the Swapchain");
+
         auto& physicalDevice = Display::get().getPhysicalDevice();
         auto& surface        = RenderWindow::get().getSurface();
 
@@ -21,6 +24,8 @@ namespace mt
 
     void Swapchain::initialize()
     {
+        Logger::log("Initializing the Swapchain");
+
         auto& device  = Display::get().getWrappedDevice();
         auto& surface = RenderWindow::get().getSurface();
 
