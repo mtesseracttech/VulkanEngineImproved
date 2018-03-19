@@ -111,6 +111,7 @@ namespace mt
 
     void Base::cleanup()
     {
+        cleanupRenderer();
         cleanupDevice();
         cleanupWindow();
     }
@@ -125,6 +126,12 @@ namespace mt
     {
         Logger::log("Cleaning up the rendering device");
         Display::get().cleanup();
+    }
+
+    void Base::cleanupRenderer()
+    {
+        Logger::log("Cleaning up the renderer");
+        m_renderer.destroy();
     }
 }
 

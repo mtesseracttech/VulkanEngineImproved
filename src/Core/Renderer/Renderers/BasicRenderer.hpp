@@ -17,6 +17,8 @@ namespace mt{
 
     public:
         void initialize();
+
+        void destroy();
     };
 }
 

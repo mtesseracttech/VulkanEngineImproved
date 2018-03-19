@@ -5,12 +5,15 @@
 #ifndef VULKANENGINEFIXED_SWAPCHAIN_HPP
 #define VULKANENGINEFIXED_SWAPCHAIN_HPP
 
+#include <vulkan/vulkan.hpp>
+#include <Core/Renderer/Vulkan/Queue/SurfaceQueueFamilies.hpp>
+
 namespace mt
 {
     class Swapchain
     {
     private:
-        vk::SwapchainKHR           m_swapchain;
+        vk::SwapchainKHR           m_swapchain = nullptr;
 
         std::vector<vk::Image>     m_images;
         std::vector<vk::ImageView> m_imageViews;
@@ -25,7 +28,7 @@ namespace mt
             vk::SurfaceCapabilitiesKHR        capabilities;
             std::vector<vk::SurfaceFormatKHR> formats;
             std::vector<vk::PresentModeKHR>   presentModes;
-        }                          m_supportDetails;
+        } m_supportDetails;
 
     private:
         void querySwapchainSupport(vk::PhysicalDevice p_physicalDevice, vk::SurfaceKHR p_surface);
@@ -44,6 +47,8 @@ namespace mt
         void create();
 
         void initialize();
+
+        void destroy();
 
         const vk::Extent2D getExtent();
 

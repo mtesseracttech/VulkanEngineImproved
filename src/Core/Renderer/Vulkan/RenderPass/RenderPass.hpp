@@ -19,6 +19,7 @@ namespace mt
 
     public:
         void create(Swapchain p_swapchain);
+        void destroy();
 
         vk::RenderPass& getRenderPass();
     };

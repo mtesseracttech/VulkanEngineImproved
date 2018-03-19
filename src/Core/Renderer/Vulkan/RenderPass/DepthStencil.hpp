@@ -12,7 +12,7 @@ namespace mt
 {
     class DepthStencil
     {
-        vk::Format       m_depthFormat      = nullptr;
+        vk::Format       m_depthFormat;
         vk::Image        m_depthImage       = nullptr;
         vk::DeviceMemory m_depthImageMemory = nullptr;
         vk::ImageView    m_depthImageView   = nullptr;
@@ -25,6 +25,7 @@ namespace mt
 
     public:
         void create(vk::Extent2D p_swapchainExtent);
+
         void destroy();
 
         const vk::Format& getDepthFormat();

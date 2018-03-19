@@ -11,8 +11,6 @@ namespace mt
 {
     void Swapchain::create()
     {
-        Logger::log("Creating the Swapchain");
-
         auto& physicalDevice = Display::get().getPhysicalDevice();
         auto& surface        = RenderWindow::get().getSurface();
 
@@ -24,8 +22,6 @@ namespace mt
 
     void Swapchain::initialize()
     {
-        Logger::log("Initializing the Swapchain");
-
         auto& device  = Display::get().getWrappedDevice();
         auto& surface = RenderWindow::get().getSurface();
 
@@ -185,6 +181,18 @@ namespace mt
     const vk::Format Swapchain::getImageFormat()
     {
         return m_imageFormat;
+    }
+
+    void Swapchain::destroy()
+    {
+        const auto& device = Display::get().getDevice();
+
+        for (auto imageView : m_imageViews)
+        {
+            device.destroyImageView(imageView);
+        }
+
+        if(m_swapchain) device.destroySwapchainKHR(m_swapchain);
     }
 }
 

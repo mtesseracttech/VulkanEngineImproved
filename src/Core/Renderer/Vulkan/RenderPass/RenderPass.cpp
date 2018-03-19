@@ -74,4 +74,13 @@ namespace mt
     {
         return m_renderPass;
     }
+
+    void RenderPass::destroy()
+    {
+        const auto& device = Display::get().getDevice();
+
+        if(m_renderPass) device.destroyRenderPass(m_renderPass);
+
+        m_depthStencil.destroy();
+    }
 }

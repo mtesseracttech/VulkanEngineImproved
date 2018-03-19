@@ -45,6 +45,8 @@ namespace mt
         void run();
 
         void cleanup();
+
+        void cleanupRenderer();
     };
 }
 

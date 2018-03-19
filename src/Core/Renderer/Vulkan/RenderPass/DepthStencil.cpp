@@ -36,7 +36,7 @@ namespace mt
         m_depthImageView   = nullptr;
         m_depthImage       = nullptr;
         m_depthImageMemory = nullptr;
-        m_depthFormat      = nullptr;
+        m_depthFormat      = vk::Format::eUndefined;
     }
 
     vk::Format DepthStencil::findDepthFormat()
@@ -91,6 +91,7 @@ namespace mt
 
     vk::ImageView DepthStencil::createDepthImageView()
     {
+        const auto& device = Display::get().getDevice();
         vk::ImageViewCreateInfo viewInfo;
         viewInfo.image                           = m_depthImage;
         viewInfo.viewType                        = vk::ImageViewType::e2D;
@@ -100,6 +101,8 @@ namespace mt
         viewInfo.subresourceRange.levelCount     = 1;
         viewInfo.subresourceRange.baseArrayLayer = 0;
         viewInfo.subresourceRange.layerCount     = 1;
+
+        return device.createImageView(viewInfo);
     }
 
     const vk::Format& DepthStencil::getDepthFormat()
