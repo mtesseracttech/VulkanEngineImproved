@@ -101,6 +101,7 @@ namespace mt
 
     glm::ivec2 RenderWindow::getSize()
     {
+        assert(m_window);
         int x, y;
         glfwGetWindowSize(m_window, &x, &y);
         return glm::ivec2(x, y);
@@ -108,7 +109,20 @@ namespace mt
 
     void RenderWindow::setTitle(std::string p_windowTitle)
     {
+        assert(m_window);
         glfwSetWindowTitle(m_window, p_windowTitle.c_str());
+    }
+
+    void RenderWindow::setUserPointer(void* p_user)
+    {
+        assert(m_window);
+        glfwSetWindowUserPointer(m_window, p_user);
+    }
+
+    void RenderWindow::setWindowSizeCallback(GLFWwindowsizefun p_callback)
+    {
+        assert(m_window);
+        glfwSetWindowSizeCallback(m_window, p_callback);
     }
 }
 

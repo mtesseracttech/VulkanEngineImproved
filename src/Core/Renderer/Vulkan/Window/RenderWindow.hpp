@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 #include <vulkan/vulkan.hpp>
 #include <glm/glm.hpp>
+#include <functional>
 
 namespace mt
 {
@@ -102,6 +103,10 @@ namespace mt
          * Returns the window size as a GLM integer vec2
          */
         glm::ivec2 getSize();
+
+        void setUserPointer(void* p_user);
+
+        void setWindowSizeCallback(GLFWwindowsizefun p_callback);
     };
 
 }

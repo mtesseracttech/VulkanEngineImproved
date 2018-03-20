@@ -5,6 +5,7 @@
 #include <Core/Renderer/Vulkan/Device/Display.hpp>
 #include <Core/Renderer/Vulkan/Window/RenderWindow.hpp>
 #include <Core/Utility/Logger.hpp>
+#include <iostream>
 #include "Swapchain.hpp"
 
 namespace mt
@@ -67,13 +68,14 @@ namespace mt
             createInfo.imageSharingMode = vk::SharingMode::eExclusive;
         }
 
-        m_swapchain = device.getLogicalDevice().createSwapchainKHR(createInfo);
-        m_images    = device.getLogicalDevice().getSwapchainImagesKHR(m_swapchain);
-
+        m_swapchain   = device.getLogicalDevice().createSwapchainKHR(createInfo);
+        m_images      = device.getLogicalDevice().getSwapchainImagesKHR(m_swapchain);
         m_imageFormat = surfaceFormat.format;
         m_extent      = extent;
 
         createImageViews(device.getLogicalDevice());
+
+        std::cout << "IMAGES IN SWAPCHAIN " << m_images.size() << std::endl;
     }
 
     void Swapchain::querySwapchainSupport(vk::PhysicalDevice p_physicalDevice, vk::SurfaceKHR p_surface)
@@ -185,14 +187,17 @@ namespace mt
 
     void Swapchain::destroy()
     {
-        const auto& device = Display::get().getDevice();
+        auto& device = Display::get().getDevice();
 
-        for (auto imageView : m_imageViews)
+        for (auto& imageView : m_imageViews)
         {
             device.destroyImageView(imageView);
         }
 
-        if(m_swapchain) device.destroySwapchainKHR(m_swapchain);
+        m_imageViews.clear();
+
+        if (m_swapchain) device.destroySwapchainKHR(m_swapchain);
     }
+
 }
 

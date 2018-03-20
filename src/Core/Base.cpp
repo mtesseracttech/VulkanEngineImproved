@@ -9,6 +9,7 @@
 #include <Core/Input/MouseInput.hpp>
 #include <Core/Input/KeyInput.hpp>
 #include <Core/Maths/Time/GameTimer.hpp>
+#include <Core/Renderer/Vulkan/Assets/ShaderProgram/ShaderProgram.hpp>
 #include "Base.hpp"
 
 namespace mt
@@ -28,8 +29,10 @@ namespace mt
         Logger::log("Creating a Render Window");
         auto& window = RenderWindow::get();
         window.create(glm::vec2(1280, 720), false, "Wolfsbane Engine");
-        glfwSetWindowUserPointer(window.getGlfwWindowHandle(), this);
-        //Todo: Adding the OnWindowResized Callback
+        window.setUserPointer(this);
+        window.setWindowSizeCallback(WindowResizedCallback);
+        //glfwSetWindowUserPointer(window.getGlfwWindowHandle(), this);
+        //glfwSetWindowSizeCallback(window)
     }
 
     void Base::initializeDisplay()
@@ -132,6 +135,16 @@ namespace mt
     {
         Logger::log("Cleaning up the renderer");
         m_renderer.destroy();
+    }
+
+    void Base::onWindowResized(){
+        m_renderer.onResized();
+    }
+
+    void Base::WindowResizedCallback(GLFWwindow* p_window, int p_width, int p_height)
+    {
+        auto base = reinterpret_cast<Base *>(glfwGetWindowUserPointer(p_window));
+        base->onWindowResized();
     }
 }
 

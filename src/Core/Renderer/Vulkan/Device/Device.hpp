@@ -82,6 +82,12 @@ namespace mt
          */
         vk::CommandBuffer createCommandBuffer(vk::CommandBufferLevel p_level, bool p_begin = false, CommandPoolType p_poolType = GraphicsPool);
 
+        void flushCommandBuffer(vk::CommandBuffer p_commandBuffer, vk::Queue p_queue, bool p_free = true);
+
+        vk::Queue getQueue(QueueType p_type);
+
+        void waitTillIdle();
+
     };
 }
 

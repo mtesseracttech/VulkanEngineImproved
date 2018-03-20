@@ -97,10 +97,13 @@ namespace mt
 
     void Device::destroy()
     {
-        m_logicalDevice.destroy();
+        if (m_commandPools.graphics) m_logicalDevice.destroyCommandPool(m_commandPools.graphics);
+        if (m_commandPools.present) m_logicalDevice.destroyCommandPool(m_commandPools.present);
+        if (m_logicalDevice) m_logicalDevice.destroy();
     }
 
-    vk::CommandBuffer Device::createCommandBuffer(vk::CommandBufferLevel p_level, bool p_begin, CommandPoolType p_poolType)
+    vk::CommandBuffer
+    Device::createCommandBuffer(vk::CommandBufferLevel p_level, bool p_begin, CommandPoolType p_poolType)
     {
         assert(m_logicalDevice);
 
@@ -132,6 +135,7 @@ namespace mt
 
     void Device::createCommandPools()
     {
+        assert(m_logicalDevice && "Cannot create command pools without a logical device");
         vk::CommandPoolCreateInfo poolCreateInfo;
         poolCreateInfo.flags            = vk::CommandPoolCreateFlagBits::eResetCommandBuffer;
         poolCreateInfo.queueFamilyIndex = m_queueFamilyIndices.getGraphicsFamily();
@@ -139,5 +143,56 @@ namespace mt
 
         poolCreateInfo.queueFamilyIndex = m_queueFamilyIndices.getPresentFamily();
         m_commandPools.present          = m_logicalDevice.createCommandPool(poolCreateInfo);
+    }
+
+    void Device::flushCommandBuffer(vk::CommandBuffer p_commandBuffer, vk::Queue p_queue, bool p_free)
+    {
+        if (!p_commandBuffer) return;
+
+        p_commandBuffer.end();
+
+        vk::FenceCreateInfo fenceCreateInfo;
+        fenceCreateInfo.flags = vk::FenceCreateFlags(0);
+
+        vk::Fence fence = m_logicalDevice.createFence(fenceCreateInfo);
+
+        vk::SubmitInfo submitInfo;
+        submitInfo.commandBufferCount = 1;
+        submitInfo.pCommandBuffers    = &p_commandBuffer;
+
+        p_queue.submit(1, &submitInfo, fence);
+
+        m_logicalDevice.waitForFences(1, &fence, vk::Bool32(true), 100000000000);
+
+        m_logicalDevice.destroyFence(fence);
+
+        if (p_free)
+        {
+            if (p_queue == m_queues.graphics)
+            {
+                m_logicalDevice.freeCommandBuffers(m_commandPools.graphics, 1, &p_commandBuffer);
+            }
+            else if (p_queue == m_queues.present)
+            {
+                m_logicalDevice.freeCommandBuffers(m_commandPools.present, 1, &p_commandBuffer);
+            }
+        }
+
+    }
+
+    vk::Queue Device::getQueue(QueueType p_type)
+    {
+        switch (p_type)
+        {
+            case GraphicsQueue:
+                return m_queues.graphics;
+            case PresentQueue:
+                return m_queues.present;
+        }
+    }
+
+    void Device::waitTillIdle()
+    {
+        m_logicalDevice.waitIdle();
     }
 }

@@ -4,6 +4,9 @@
 
 #include <Core/Utility/Logger.hpp>
 #include "BasicRenderer.hpp"
+#include <sstream>
+#include <Core/Renderer/Vulkan/Window/RenderWindow.hpp>
+#include <Core/Renderer/Vulkan/Device/Display.hpp>
 
 namespace mt
 {
@@ -28,5 +31,22 @@ namespace mt
 
         Logger::log("Destroying the Swapchain");
         m_swapchain.destroy();
+    }
+
+    void BasicRenderer::onResized()
+    {
+        auto& window = RenderWindow::get();
+        auto& device = Display::get().getWrappedDevice();
+
+        if(window.getSize().x == 0 || window.getSize().y == 0) return;
+
+        device.waitTillIdle();
+
+        Logger::log("Rebuilding Swapchain related Resources");
+        m_renderPass.destroy();
+        m_swapchain.destroy();
+        m_swapchain.create();
+        m_swapchain.initialize();
+        m_renderPass.create(m_swapchain);
     }
 }

@@ -17,12 +17,18 @@ namespace mt
 
         m_depthImageView = createDepthImageView();
 
-        vk::CommandBuffer commandbuffer = Display::get().getWrappedDevice().createCommandBuffer(
+        auto& device = Display::get().getWrappedDevice();
+
+        vk::CommandBuffer commandbuffer = device.createCommandBuffer(
                 vk::CommandBufferLevel::ePrimary, true, GraphicsPool);
+
         VulkanHelpers::setImageLayout(commandbuffer, m_depthImage,
                                       vk::ImageAspectFlagBits::eDepth,
                                       vk::ImageLayout::eUndefined,
                                       vk::ImageLayout::eDepthStencilAttachmentOptimal);
+
+        device.flushCommandBuffer(commandbuffer, device.getQueue(GraphicsQueue));
+
     }
 
     void DepthStencil::destroy()

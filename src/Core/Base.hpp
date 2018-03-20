@@ -7,6 +7,7 @@
 
 #include <Core/Renderer/Renderers/BasicRenderer.hpp>
 #include "Maths/Time/Timer.hpp"
+#include "GLFW/glfw3.h"
 
 namespace mt
 {
@@ -47,6 +48,10 @@ namespace mt
         void cleanup();
 
         void cleanupRenderer();
+
+        static void WindowResizedCallback(GLFWwindow* p_window, int p_width, int p_height);
+
+        void onWindowResized();
     };
 }
 

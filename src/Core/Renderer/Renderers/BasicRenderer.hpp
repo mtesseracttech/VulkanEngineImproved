@@ -19,6 +19,8 @@ namespace mt{
         void initialize();
 
         void destroy();
+
+        void onResized();
     };
 }
 
