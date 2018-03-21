@@ -18,7 +18,7 @@ namespace mt
 
     public:
 
-        static const bool m_enableValidationLayers;
+        static const bool                     m_enableValidationLayers;
         static const std::vector<const char*> m_validationLayers;
 
     private:

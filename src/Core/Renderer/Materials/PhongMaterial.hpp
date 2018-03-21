@@ -5,11 +5,13 @@
 #ifndef VULKANENGINEFIXED_PHONGMATERIAL_HPP
 #define VULKANENGINEFIXED_PHONGMATERIAL_HPP
 
+namespace mt{
+    class PhongMaterial
+    {
+        void create();
+    };
+}
 
-class PhongMaterial
-{
-
-};
 
 
 #endif //VULKANENGINEFIXED_PHONGMATERIAL_HPP

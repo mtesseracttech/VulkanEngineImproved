@@ -177,7 +177,6 @@ namespace mt
                 m_logicalDevice.freeCommandBuffers(m_commandPools.present, 1, &p_commandBuffer);
             }
         }
-
     }
 
     vk::Queue Device::getQueue(QueueType p_type)

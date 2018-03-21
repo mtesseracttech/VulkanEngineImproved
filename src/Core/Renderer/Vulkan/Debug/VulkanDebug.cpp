@@ -10,21 +10,18 @@
 namespace mt
 {
 
-#ifdef NDEBUG
+    #ifdef NDEBUG
     const bool VulkanDebug::m_enableValidationLayers = false;
-#else
+    #else
     const bool VulkanDebug::m_enableValidationLayers = true;
-#endif //NDEBUG
+    #endif //NDEBUG
 
-#ifdef __MINGW32__
+
     const std::vector<const char*> VulkanDebug::m_validationLayers = {
+            #ifdef _WIN32 //Because thus far I only got these layers to work on Windows
             "VK_LAYER_LUNARG_standard_validation"
+            #endif //__MINGW32__
     };
-#else
-    const std::vector<const char *> VulkanDebug::m_validationLayers = {};
-#endif //__MINGW32__
-
-
 
 
     void VulkanDebug::create(vk::Instance p_instance)

@@ -74,8 +74,6 @@ namespace mt
         m_extent      = extent;
 
         createImageViews(device.getLogicalDevice());
-
-        std::cout << "IMAGES IN SWAPCHAIN " << m_images.size() << std::endl;
     }
 
     void Swapchain::querySwapchainSupport(vk::PhysicalDevice p_physicalDevice, vk::SurfaceKHR p_surface)

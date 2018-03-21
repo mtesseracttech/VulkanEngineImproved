@@ -5,9 +5,9 @@
 #ifndef VULKANENGINEFIXED_SHADERPROGRAM_HPP
 #define VULKANENGINEFIXED_SHADERPROGRAM_HPP
 
-
 #include <vulkan/vulkan.hpp>
 #include <string>
+#include "ShaderStages.hpp"
 
 namespace mt
 {
@@ -34,12 +34,6 @@ namespace mt
         static vk::ShaderModule createShaderModule(const std::vector<char>& code);
 
     public:
-        struct ShaderInfo
-        {
-            std::vector<vk::PipelineShaderStageCreateInfo> m_shaderStages;
-            std::string                                    m_name;
-        };
-
         /*
          * Call this to load a shader folder, it's expected to be in the following format/location:
          * (proj_root)/res/shaders/(shader_name)/(shader_name).type.spv
@@ -50,7 +44,7 @@ namespace mt
          * Vertex   - .vert.spv
          * Geometry - .geom.spv
          */
-        static ShaderInfo loadShader(const std::string& p_shaderName);
+        static ShaderStages loadShader(const std::string& p_shaderName);
     };
 }
 
