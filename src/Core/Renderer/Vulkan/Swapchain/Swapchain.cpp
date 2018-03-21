@@ -15,8 +15,8 @@ namespace mt
         auto& physicalDevice = Display::get().getPhysicalDevice();
         auto& surface        = RenderWindow::get().getSurface();
 
-        assert(physicalDevice && "Can't create a Swapchain without a Device");
-        assert(surface && "Can't create a Swapchain without a Surface");
+        assert(physicalDevice && "Can't setup a Swapchain without a Device");
+        assert(surface && "Can't setup a Swapchain without a Surface");
 
         m_queueFamilies.create(physicalDevice, surface);
     }

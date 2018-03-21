@@ -51,7 +51,7 @@ namespace mt
 
         if (glfwCreateWindowSurface(instance, m_window, nullptr, &surface) != VK_SUCCESS)
         {
-            throw std::runtime_error("Failed to create window surface");
+            throw std::runtime_error("Failed to setup window surface");
         }
 
         m_surface = surface;

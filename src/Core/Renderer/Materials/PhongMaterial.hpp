@@ -5,13 +5,20 @@
 #ifndef VULKANENGINEFIXED_PHONGMATERIAL_HPP
 #define VULKANENGINEFIXED_PHONGMATERIAL_HPP
 
-namespace mt{
-    class PhongMaterial
+#include "AbstractMaterial.hpp"
+
+namespace mt
+{
+    class PhongMaterial : public AbstractMaterial
     {
-        void create();
+    public:
+        PhongMaterial();
+
+        void create() override;
+
+        void initialize() override;
     };
 }
-
 
 
 #endif //VULKANENGINEFIXED_PHONGMATERIAL_HPP

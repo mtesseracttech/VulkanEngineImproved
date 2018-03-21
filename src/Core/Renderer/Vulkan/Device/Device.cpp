@@ -19,7 +19,7 @@ namespace mt
         m_physicalDevice = p_physicalDevice;
 
         auto& surface                                              = RenderWindow::get().getSurface();
-        assert(surface && "Surface was null, can't create any queues without it");
+        assert(surface && "Surface was null, can't setup any queues without it");
 
         m_queueFamilyIndices.create(m_physicalDevice, surface);
 
@@ -135,7 +135,7 @@ namespace mt
 
     void Device::createCommandPools()
     {
-        assert(m_logicalDevice && "Cannot create command pools without a logical device");
+        assert(m_logicalDevice && "Cannot setup command pools without a logical device");
         vk::CommandPoolCreateInfo poolCreateInfo;
         poolCreateInfo.flags            = vk::CommandPoolCreateFlagBits::eResetCommandBuffer;
         poolCreateInfo.queueFamilyIndex = m_queueFamilyIndices.getGraphicsFamily();
