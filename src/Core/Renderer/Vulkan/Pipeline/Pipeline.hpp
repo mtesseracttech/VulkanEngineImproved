@@ -1,0 +1,15 @@
+//
+// Created by MTesseracT on 21-3-2018.
+//
+
+#ifndef VULKANENGINEFIXED_PIPELINE_HPP
+#define VULKANENGINEFIXED_PIPELINE_HPP
+
+
+class Pipeline
+{
+
+};
+
+
+#endif //VULKANENGINEFIXED_PIPELINE_HPP

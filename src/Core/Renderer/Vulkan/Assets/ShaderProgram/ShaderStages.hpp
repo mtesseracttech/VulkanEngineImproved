@@ -1,0 +1,15 @@
+//
+// Created by MTesseracT on 21-3-2018.
+//
+
+#ifndef VULKANENGINEFIXED_SHADERSTAGES_HPP
+#define VULKANENGINEFIXED_SHADERSTAGES_HPP
+
+
+class ShaderStages
+{
+
+};
+
+
+#endif //VULKANENGINEFIXED_SHADERSTAGES_HPP
