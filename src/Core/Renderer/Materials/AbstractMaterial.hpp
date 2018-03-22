@@ -15,11 +15,14 @@ namespace mt
         Pipeline m_pipeline;
     public:
         AbstractMaterial() = default;
+
         virtual ~AbstractMaterial() = default;
 
         virtual void create() = 0;
 
-        virtual void initialize() = 0;
+        virtual void initialize(vk::RenderPass p_renderPass) = 0;
+
+        virtual void rebuild() = 0;
     };
 }
 

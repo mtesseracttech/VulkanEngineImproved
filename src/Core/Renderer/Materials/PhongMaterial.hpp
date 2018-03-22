@@ -16,7 +16,7 @@ namespace mt
 
         void create() override;
 
-        void initialize() override;
+        void initialize(vk::RenderPass p_renderPass) override;
     };
 }
 

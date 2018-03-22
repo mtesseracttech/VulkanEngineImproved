@@ -3,6 +3,7 @@
 //
 
 #include "Pipeline.hpp"
+#include "PipelineCache.hpp"
 #include <Core/Renderer/Vulkan/Device/Display.hpp>
 #include <Core/Renderer/Vulkan/Window/RenderWindow.hpp>
 #include <exception>
@@ -19,13 +20,15 @@ namespace mt
     void Pipeline::create(vk::RenderPass p_renderPass)
     {
         createPipelineLayout();
-        createPipeline(vk::RenderPass());
+        createPipeline(p_renderPass);
     }
 
     void Pipeline::createPipeline(vk::RenderPass p_renderPass)
     {
         const auto& device = Display::get().getDevice();
         auto      & window = RenderWindow::get();
+        const auto& cache  = PipelineCache::get().getPipelineCache();
+
 
         vk::PipelineVertexInputStateCreateInfo vertexInputState;
         vertexInputState.vertexBindingDescriptionCount   = m_vertexLayout.getBindingCount();
@@ -49,7 +52,7 @@ namespace mt
         viewport.maxDepth = 1.0f;
 
         vk::Rect2D scissor;
-        scissor.offset = vk::Offset2D(0,0);
+        scissor.offset = vk::Offset2D(0, 0);
         scissor.extent = swapchainExtent;
 
         vk::PipelineViewportStateCreateInfo viewportState;
@@ -111,8 +114,7 @@ namespace mt
         pipelineInfo.subpass             = 0;
         pipelineInfo.basePipelineHandle  = nullptr;
 
-        //TODO: Pipelinecache addition
-        m_pipeline = device.createGraphicsPipeline(nullptr, pipelineInfo);
+        m_pipeline = device.createGraphicsPipeline(cache, pipelineInfo);
     }
 
     void Pipeline::createPipelineLayout()

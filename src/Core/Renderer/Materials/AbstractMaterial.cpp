@@ -4,6 +4,5 @@
 
 #include "AbstractMaterial.hpp"
 
-namespace mt{
-}
+namespace mt{}
 

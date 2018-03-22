@@ -48,5 +48,6 @@ namespace mt
         m_swapchain.create();
         m_swapchain.initialize();
         m_renderPass.create(m_swapchain);
+
     }
 }

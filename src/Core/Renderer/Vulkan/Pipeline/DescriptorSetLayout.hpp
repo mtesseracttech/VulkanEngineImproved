@@ -17,7 +17,6 @@ namespace mt
 
         void addDescriptorSet(uint32_t p_binding, vk::ShaderStageFlags p_shaderStage, vk::DescriptorType p_type);
 
-
     public:
         void create();
 

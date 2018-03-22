@@ -12,9 +12,9 @@ namespace mt
     {
     }
 
-    void PhongMaterial::initialize()
+    void PhongMaterial::initialize(vk::RenderPass p_renderPass)
     {
-
+        m_pipeline.create(p_renderPass);
     }
 
     PhongMaterial::PhongMaterial()
