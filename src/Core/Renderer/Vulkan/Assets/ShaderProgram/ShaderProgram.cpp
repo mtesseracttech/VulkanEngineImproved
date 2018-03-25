@@ -9,16 +9,10 @@
 #include <sstream>
 #include <tuple>
 #include <Core/Renderer/Vulkan/Device/Display.hpp>
-#include <Core/IO/AssetLocations.hpp>
+#include <Core/IO/FileSystemHelpers.hpp>
 
 namespace mt
 {
-    bool ShaderProgram::fileExists(std::string p_fileName)
-    {
-        std::ifstream file(p_fileName.c_str());
-        return file.good();
-    }
-
     std::vector<char> ShaderProgram::readFile(std::string& p_fileName)
     {
         std::ifstream file(p_fileName, std::ios::ate | std::ios::binary);
@@ -72,7 +66,7 @@ namespace mt
         for (const auto& shaderType : shaderTypes)
         {
             std::string file = fileBase.str() + std::get<0>(shaderType);
-            if (fileExists(file))
+            if (FileSystemHelpers::fileExists(file))
             {
                 vk::PipelineShaderStageCreateInfo createInfo;
                 createInfo.module = createShaderModule(readFile(file));

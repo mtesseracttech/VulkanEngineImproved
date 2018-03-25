@@ -4,18 +4,17 @@
 
 #include "Pipeline.hpp"
 #include "PipelineCache.hpp"
+#include "PipelineCreateInfo.hpp"
 #include <Core/Renderer/Vulkan/Device/Display.hpp>
 #include <Core/Renderer/Vulkan/Window/RenderWindow.hpp>
 #include <exception>
 
 namespace mt
 {
-    void Pipeline::setup(VertexLayout p_vertexLayout, ShaderStages p_stages, DescriptorSetLayout p_descriptorSetLayout)
-    {
-        m_vertexLayout        = std::move(p_vertexLayout);
-        m_stages              = std::move(p_stages);
-        m_descriptorSetLayout = std::move(p_descriptorSetLayout);
-    }
+    Pipeline::Pipeline(PipelineCreateInfo p_createInfo) : m_vertexLayout(std::move(p_createInfo.m_vertexLayout)),
+                                                           m_stages(std::move(p_createInfo.m_shaders)),
+                                                           m_descriptorSetLayout(std::move(p_createInfo.m_descriptorSetLayout))
+    {}
 
     void Pipeline::create(vk::RenderPass p_renderPass)
     {

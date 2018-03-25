@@ -10,6 +10,8 @@
 #include <Core/Input/KeyInput.hpp>
 #include <Core/Maths/Time/GameTimer.hpp>
 #include <Core/Renderer/Vulkan/Assets/ShaderProgram/ShaderProgram.hpp>
+#include <Core/Renderer/Materials/MaterialCache.hpp>
+#include <Core/Renderer/Materials/PhongMaterial.hpp>
 #include "Base.hpp"
 
 namespace mt

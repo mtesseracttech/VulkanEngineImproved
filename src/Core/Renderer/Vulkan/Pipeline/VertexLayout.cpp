@@ -6,7 +6,7 @@
 
 namespace mt
 {
-    void VertexLayout::create(std::vector<VertexLayoutComponent> p_components)
+    VertexLayout::VertexLayout(std::vector<VertexLayoutComponent> p_components)
     {
         m_vertexComponents = std::move(p_components);
         calculateStride();

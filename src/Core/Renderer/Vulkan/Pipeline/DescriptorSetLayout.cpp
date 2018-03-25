@@ -7,9 +7,9 @@
 
 namespace mt
 {
-    void DescriptorSetLayout::addDescriptorSet(uint32_t p_binding,
-                                               vk::ShaderStageFlags p_shaderStage,
-                                               vk::DescriptorType p_type)
+    vk::DescriptorSetLayoutBinding DescriptorSetLayout::createLayoutBinding(uint32_t p_binding,
+                                                                            vk::ShaderStageFlags p_shaderStage,
+                                                                            vk::DescriptorType p_type)
     {
         vk::DescriptorSetLayoutBinding layoutBinding;
         layoutBinding.binding            = p_binding;
@@ -17,28 +17,7 @@ namespace mt
         layoutBinding.descriptorType     = p_type;
         layoutBinding.pImmutableSamplers = nullptr;
         layoutBinding.stageFlags         = p_shaderStage;
-        m_layoutBindings.push_back(layoutBinding);
-    }
-
-    void DescriptorSetLayout::addUniformBuffer(uint32_t p_binding, vk::ShaderStageFlags p_shaderStage)
-    {
-        addDescriptorSet(p_binding, p_shaderStage, vk::DescriptorType::eUniformBuffer);
-    }
-
-    void DescriptorSetLayout::addCombinedImageSampler(uint32_t p_binding, vk::ShaderStageFlags p_shaderStage)
-    {
-        addDescriptorSet(p_binding, p_shaderStage, vk::DescriptorType::eCombinedImageSampler);
-    }
-
-    void DescriptorSetLayout::create()
-    {
-        const auto& device = Display::get().getDevice();
-
-        vk::DescriptorSetLayoutCreateInfo layoutInfo;
-        layoutInfo.bindingCount = static_cast<uint32_t>(m_layoutBindings.size());
-        layoutInfo.pBindings = m_layoutBindings.data();
-
-        m_layout = device.createDescriptorSetLayout(layoutInfo);
+        return layoutBinding;
     }
 
     const vk::DescriptorSetLayout DescriptorSetLayout::getLayout()
@@ -46,6 +25,22 @@ namespace mt
         return m_layout;
     }
 
+    DescriptorSetLayout::DescriptorSetLayout(const std::vector<DescriptorSet>& p_descriptorSets)
+    {
+        const auto& device = Display::get().getDevice();
 
+        std::vector<vk::DescriptorSetLayoutBinding> layoutBindings;
+        for (const auto& descriptorSet : p_descriptorSets)
+        {
+            layoutBindings.push_back(
+                    createLayoutBinding(descriptorSet.m_binding, descriptorSet.m_shaderStage, descriptorSet.m_type));
+        }
+
+        vk::DescriptorSetLayoutCreateInfo layoutInfo;
+        layoutInfo.bindingCount = static_cast<uint32_t>(layoutBindings.size());
+        layoutInfo.pBindings    = layoutBindings.data();
+
+        m_layout = device.createDescriptorSetLayout(layoutInfo);
+    }
 }
 

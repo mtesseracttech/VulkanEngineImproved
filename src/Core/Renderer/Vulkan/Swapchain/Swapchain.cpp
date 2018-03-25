@@ -26,7 +26,7 @@ namespace mt
         auto& device  = Display::get().getWrappedDevice();
         auto& surface = RenderWindow::get().getSurface();
 
-        assert(surface && "Can't initialize a Swapchain without a Surface");
+        assert(surface && "Can't initializePipeline a Swapchain without a Surface");
 
         querySwapchainSupport(device.getPhysicalDevice(), surface);
 

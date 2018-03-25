@@ -38,7 +38,7 @@ namespace mt
         void generateAttributeDescription();
 
     public:
-        void create(std::vector<VertexLayoutComponent> p_components);
+        VertexLayout(std::vector<VertexLayoutComponent> p_components);
 
         uint32_t getStride();
 

@@ -7,24 +7,23 @@
 
 
 #include <vulkan/vulkan.hpp>
+#include "DescriptorSet.hpp"
 
 namespace mt
 {
     class DescriptorSetLayout
     {
-        vk::DescriptorSetLayout                     m_layout = nullptr;
-        std::vector<vk::DescriptorSetLayoutBinding> m_layoutBindings;
+        vk::DescriptorSetLayout m_layout = nullptr;
 
-        void addDescriptorSet(uint32_t p_binding, vk::ShaderStageFlags p_shaderStage, vk::DescriptorType p_type);
+        vk::DescriptorSetLayoutBinding createLayoutBinding(uint32_t p_binding, vk::ShaderStageFlags p_shaderStage,
+                                                           vk::DescriptorType p_type);
 
     public:
-        void create();
-
-        void addUniformBuffer(uint32_t p_binding, vk::ShaderStageFlags p_shaderStage);
-
-        void addCombinedImageSampler(uint32_t p_binding, vk::ShaderStageFlags p_shaderStage);
+        DescriptorSetLayout(const std::vector<DescriptorSet>& p_descriptorSets);
 
         const vk::DescriptorSetLayout getLayout();
+
+
     };
 }
 

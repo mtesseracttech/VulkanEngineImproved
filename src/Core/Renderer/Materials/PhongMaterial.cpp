@@ -3,31 +3,37 @@
 //
 
 #include <Core/Renderer/Vulkan/Assets/ShaderProgram/ShaderProgram.hpp>
+#include <Core/Renderer/Vulkan/Pipeline/PipelineCreateInfo.hpp>
+#include <Core/Utility/Logger.hpp>
 #include "PhongMaterial.hpp"
 
 namespace mt
 {
-
-    void PhongMaterial::create()
+    PhongMaterial::PhongMaterial() : m_pipeline(PipelineCreateInfo(VertexLayout({ePosition, eNormal, eUV}),
+                                                                   DescriptorSetLayout({DescriptorSet(0, vk::DescriptorType::eUniformBuffer, vk::ShaderStageFlagBits::eVertex),
+                                                                                        DescriptorSet(1, vk::DescriptorType::eCombinedImageSampler, vk::ShaderStageFlagBits::eFragment)}),
+                                                                   ShaderProgram::loadShader("phong")))
     {
     }
 
-    void PhongMaterial::initialize(vk::RenderPass p_renderPass)
+    PhongMaterial::~PhongMaterial()
     {
-        m_pipeline.create(p_renderPass);
+
     }
 
-    PhongMaterial::PhongMaterial()
+    void PhongMaterial::loadAssets(const std::string& p_assetName)
     {
-        VertexLayout layout;
-        layout.create({ePosition, eNormal, eUV});
-
-        ShaderStages shader = ShaderProgram::loadShader("phong");
-
-        DescriptorSetLayout descriptorSetLayout;
-        descriptorSetLayout.addUniformBuffer(0, vk::ShaderStageFlagBits::eVertex);
-        descriptorSetLayout.addCombinedImageSampler(1, vk::ShaderStageFlagBits::eFragment);
-
-        m_pipeline.setup(layout, shader, descriptorSetLayout);
+        Logger::log("Loading phong assets for " + p_assetName);
     }
+
+    void PhongMaterial::initializePipeline(RenderPass p_renderPass)
+    {
+        m_pipeline.create(p_renderPass.getRenderPass());
+    }
+
+    void PhongMaterial::rebuild()
+    {
+    }
+
+
 }

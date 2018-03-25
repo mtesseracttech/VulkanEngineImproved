@@ -5,23 +5,32 @@
 #ifndef VULKANENGINEFIXED_ABSTRACTMATERIAL_HPP
 #define VULKANENGINEFIXED_ABSTRACTMATERIAL_HPP
 
-#include <Core/Renderer/Vulkan/Pipeline/Pipeline.hpp>
+#include <Core/Renderer/Vulkan/RenderPass/RenderPass.hpp>
 
 namespace mt
 {
     class AbstractMaterial
     {
-    protected:
-        Pipeline m_pipeline;
     public:
+        /*
+         * Set up member variables like vertex layout and descriptor layout also set up the pipeline
+         */
         AbstractMaterial() = default;
+        ~AbstractMaterial() = default;
 
-        virtual ~AbstractMaterial() = default;
+        /*
+         * Binding assets (textures, etc.) to the pipeline
+         */
+        virtual void loadAssets(const std::string& p_assetName) = 0;
 
-        virtual void create() = 0;
+        /*
+         * Creating the pipeline to be used
+         */
+        virtual void initializePipeline(RenderPass p_renderPass) = 0;
 
-        virtual void initialize(vk::RenderPass p_renderPass) = 0;
-
+        /*
+         * Reloading the shader after it's been initialized before
+         */
         virtual void rebuild() = 0;
     };
 }

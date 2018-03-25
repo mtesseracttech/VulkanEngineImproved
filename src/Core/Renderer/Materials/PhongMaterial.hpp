@@ -5,18 +5,25 @@
 #ifndef VULKANENGINEFIXED_PHONGMATERIAL_HPP
 #define VULKANENGINEFIXED_PHONGMATERIAL_HPP
 
+#include <Core/Renderer/Vulkan/RenderPass/RenderPass.hpp>
+#include <Core/Renderer/Vulkan/Pipeline/Pipeline.hpp>
 #include "AbstractMaterial.hpp"
 
 namespace mt
 {
     class PhongMaterial : public AbstractMaterial
     {
+    private:
+        Pipeline m_pipeline;
     public:
         PhongMaterial();
+        ~PhongMaterial();
 
-        void create() override;
+        void loadAssets(const std::string& p_assetName) override;
 
-        void initialize(vk::RenderPass p_renderPass) override;
+        void initializePipeline(RenderPass p_renderPass) override;
+
+        void rebuild() override;
     };
 }
 

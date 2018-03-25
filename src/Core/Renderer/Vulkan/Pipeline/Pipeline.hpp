@@ -8,6 +8,7 @@
 #include <Core/Renderer/Vulkan/Assets/ShaderProgram/ShaderStages.hpp>
 #include <Core/Renderer/Vulkan/Pipeline/VertexLayout.hpp>
 #include "DescriptorSetLayout.hpp"
+#include "PipelineCreateInfo.hpp"
 
 namespace mt
 {
@@ -26,9 +27,10 @@ namespace mt
         void createPipelineLayout();
 
     public:
+        Pipeline(PipelineCreateInfo p_createInfo);
         void create(vk::RenderPass p_renderPass);
 
-        void setup(VertexLayout p_vertexLayout, ShaderStages p_stages, DescriptorSetLayout p_descriptorSetLayout);
+        //void setup(PipelineCreateInfo p_createInfo);
     };
 }
 

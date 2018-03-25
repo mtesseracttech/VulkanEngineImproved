@@ -19,11 +19,6 @@ namespace mt
          */
 
         /*
-         * Checks if a given file exists
-         */
-        static bool fileExists(std::string p_fileName);
-
-        /*
          * Reads the file as a binary and returns a list of the characters
          */
         static std::vector<char> readFile(std::string& p_fileName);
