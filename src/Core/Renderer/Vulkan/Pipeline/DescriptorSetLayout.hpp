@@ -22,8 +22,6 @@ namespace mt
         DescriptorSetLayout(const std::vector<DescriptorSet>& p_descriptorSets);
 
         const vk::DescriptorSetLayout getLayout();
-
-
     };
 }
 

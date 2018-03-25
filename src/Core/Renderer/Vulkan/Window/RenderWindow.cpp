@@ -18,7 +18,7 @@ namespace mt
 
     void RenderWindow::create(glm::ivec2 p_windowSize, bool p_fullscreen, std::string p_windowTitle)
     {
-        if (glfwInit() != GLFW_TRUE) throw std::runtime_error("GLFW could not initializePipeline properly");
+        if (glfwInit() != GLFW_TRUE) throw std::runtime_error("GLFW could not initialize properly");
 
         if (p_fullscreen)
         {

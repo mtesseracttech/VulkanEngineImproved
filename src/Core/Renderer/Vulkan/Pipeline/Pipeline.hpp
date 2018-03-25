@@ -28,9 +28,8 @@ namespace mt
 
     public:
         Pipeline(PipelineCreateInfo p_createInfo);
-        void create(vk::RenderPass p_renderPass);
 
-        //void setup(PipelineCreateInfo p_createInfo);
+        void create(vk::RenderPass p_renderPass);
     };
 }
 
