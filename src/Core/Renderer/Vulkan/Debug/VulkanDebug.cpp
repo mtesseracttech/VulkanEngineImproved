@@ -63,7 +63,7 @@ namespace mt
                                  const char* p_message)
     {
         std::stringstream msg;
-        msg << "[VK-" << p_layerPrefix << "][" << getDebugObjectName(p_objectFlags) << "] (" << p_code << ") - "
+        msg << "[VK-" << p_layerPrefix << "][" << vk::to_string(p_objectFlags) << "] (" << p_code << ") - "
             << p_message;
 
         if (p_reportflags & vk::DebugReportFlagBitsEXT::eError)
@@ -156,51 +156,5 @@ namespace mt
             if (!layerFound) return false;
         }
         return true;
-    }
-
-    std::string VulkanDebug::getDebugObjectName(vk::DebugReportObjectTypeEXT p_type)
-    {
-        const std::map<vk::DebugReportObjectTypeEXT, const std::string> names{
-                std::make_pair(vk::DebugReportObjectTypeEXT::eUnknown, "Unknown"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eInstance, "Instance"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::ePhysicalDevice, "Physical Device"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eDevice, "Logical Device"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eQueue, "Queue"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eSemaphore, "Semaphore"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eCommandBuffer, "Command Buffer"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eFence, "Fence"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eDeviceMemory, "Device Memory"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eBuffer, "Buffer"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eImage, "Image"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eEvent, "Event"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eQueryPool, "Query Pool"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eBufferView, "Buffer View"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eImageView, "Image View"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eShaderModule, "Shader Module"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::ePipelineCache, "Pipeline Cache"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::ePipelineLayout, "Pipeline Layout"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eRenderPass, "Render Pass"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::ePipeline, "Pipeline"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eDescriptorSetLayout, "Descriptor Set Layout"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eSampler, "Sampler"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eDescriptorPool, "Descriptor Pool"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eDescriptorSet, "Descriptor Set"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eFramebuffer, "Frame Buffer"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eCommandPool, "Command Pool"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eSurfaceKhr, "Surface KHR"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eSwapchainKhr, "Swapchain KHR"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eDisplayKhr, "Display KHR"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eDisplayModeKhr, "Display Mode KHR"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eDebugReportCallbackExt, "Debug Report Callback EXT"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eDescriptorUpdateTemplateKHR,
-                               "Descriptor Update Template KHR"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eObjectTableNvx, "Object Table NVX"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eIndirectCommandsLayoutNvx,
-                               "Indirect Commands Layout NVX"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eSamplerYcbcrConversionKHR,
-                               "Sampler YCbCr Conversion KHR"),
-                std::make_pair(vk::DebugReportObjectTypeEXT::eValidationCacheExt, "Validation Cache EXT")
-        };
-        return names.at(p_type);
     }
 }

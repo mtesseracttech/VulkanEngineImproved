@@ -33,6 +33,11 @@ namespace mt
         vk::Device         m_logicalDevice  = nullptr;
 
         /*
+         * Stores the memory properties containing the available types of memory from the physical device
+         */
+        vk::PhysicalDeviceMemoryProperties m_memoryProperties;
+
+        /*
          * Wrapper object to search for and contain queue family indices relating to the surface
          */
         SurfaceQueueFamilies m_queueFamilyIndices;
@@ -54,6 +59,8 @@ namespace mt
             vk::Queue graphics = nullptr;
             vk::Queue present  = nullptr;
         } m_queues;
+
+    private:
 
         void createQueues();
 
@@ -88,6 +95,7 @@ namespace mt
 
         void waitTillIdle();
 
+        uint32_t getMemoryType(uint32_t p_typeBits, vk::MemoryPropertyFlags p_properties, vk::Bool32* p_found = nullptr);
     };
 }
 

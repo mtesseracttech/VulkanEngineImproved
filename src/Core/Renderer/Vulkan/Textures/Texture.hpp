@@ -5,7 +5,14 @@
 #ifndef VULKANENGINEFIXED_TEXTURE_HPP
 #define VULKANENGINEFIXED_TEXTURE_HPP
 
+#include <Core/Renderer/Vulkan/Device/Display.hpp>
+#include <Core/IO/FileSystemHelpers.hpp>
+
 #include <vulkan/vulkan.hpp>
+#include <gli/gli.hpp>
+
+#include <sstream>
+#include <exception>
 
 namespace mt
 {
@@ -25,13 +32,20 @@ namespace mt
             vk::Extent2D size       = vk::Extent2D(0, 0);
             uint32_t     mipLevels  = 0;
             uint32_t     layerCount = 0;
-        } m_imageInfo;
+        }           m_imageInfo;
 
     protected:
         void updateDescriptor();
 
+        vk::Format getVulkanFormat(gli::format p_format);
+
     public:
         void destroy();
+
+        virtual void load(const std::string& p_filename,
+                          vk::ImageUsageFlags p_imageUsage,
+                          vk::ImageLayout p_layout,
+                          bool p_linear) = 0;
     };
 }
 

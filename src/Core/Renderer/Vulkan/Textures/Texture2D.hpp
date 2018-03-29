@@ -11,11 +11,7 @@ namespace mt
 {
     class Texture2D : Texture
     {
-        void load(const std::string& p_filename,
-                  vk::Format p_format,
-                  vk::ImageUsageFlags p_imageUsage = vk::ImageUsageFlagBits::eSampled,
-                  vk::ImageLayout p_layout = vk::ImageLayout::eShaderReadOnlyOptimal,
-                  bool p_linear = false);
+        void load(const std::string& p_filename, vk::ImageUsageFlags p_imageUsage, vk::ImageLayout p_layout, bool p_linear) override;
     };
 }
 

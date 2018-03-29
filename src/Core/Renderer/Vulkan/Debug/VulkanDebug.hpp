@@ -48,9 +48,6 @@ namespace mt
                                            vk::DebugReportCallbackEXT p_callback,
                                            const vk::AllocationCallbacks* p_allocator);
 
-        static std::string getDebugObjectName(vk::DebugReportObjectTypeEXT p_objecType);
-
-
     public:
         void create(vk::Instance p_instance);
 

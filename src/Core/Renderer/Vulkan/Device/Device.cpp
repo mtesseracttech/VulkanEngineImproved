@@ -59,7 +59,8 @@ namespace mt
             deviceCreateInfo.enabledLayerCount = 0;
         }
 
-        m_logicalDevice = m_physicalDevice.createDevice(deviceCreateInfo);
+        m_logicalDevice    = m_physicalDevice.createDevice(deviceCreateInfo);
+        m_memoryProperties = m_physicalDevice.getMemoryProperties();
 
         createCommandPools();
 
@@ -113,11 +114,9 @@ namespace mt
 
         switch (p_poolType)
         {
-            case GraphicsPool :
-                commandBufferAllocateInfo.commandPool = m_commandPools.graphics;
+            case GraphicsPool :commandBufferAllocateInfo.commandPool = m_commandPools.graphics;
                 break;
-            case PresentPool:
-                commandBufferAllocateInfo.commandPool = m_commandPools.present;
+            case PresentPool:commandBufferAllocateInfo.commandPool = m_commandPools.present;
                 break;
         }
 
@@ -183,15 +182,36 @@ namespace mt
     {
         switch (p_type)
         {
-            case GraphicsQueue:
-                return m_queues.graphics;
-            case PresentQueue:
-                return m_queues.present;
+            case GraphicsQueue:return m_queues.graphics;
+            case PresentQueue:return m_queues.present;
         }
     }
 
     void Device::waitTillIdle()
     {
         m_logicalDevice.waitIdle();
+    }
+
+    uint32_t Device::getMemoryType(uint32_t p_typeBits, vk::MemoryPropertyFlags p_properties, vk::Bool32* p_found)
+    {
+        for (uint32_t i = 0; i < m_memoryProperties.memoryTypeCount; i++)
+        {
+            if ((p_typeBits & 1) == 1)
+            {
+                if ((m_memoryProperties.memoryTypes[i].propertyFlags & p_properties) == p_properties)
+                {
+                    if (p_found) *p_found = vk::Bool32(true);
+                    return i;
+                }
+            }
+            p_typeBits >>= 1;
+        }
+
+        if (p_found)
+        {
+            *p_found = vk::Bool32(false);
+            return 0;
+        }
+        else throw std::runtime_error("Could not find a matching memory type");
     }
 }
