@@ -7,6 +7,7 @@
 #include <sstream>
 #include <Core/Renderer/Vulkan/Window/RenderWindow.hpp>
 #include <Core/Renderer/Vulkan/Device/Display.hpp>
+#include <Core/Renderer/Materials/PhongMaterial.hpp>
 
 namespace mt
 {

@@ -50,9 +50,9 @@ namespace mt
 
         void destroy();
 
-        const vk::Extent2D getExtent();
+        const vk::Extent2D getExtent() const;
 
-        const vk::Format getImageFormat();
+        const vk::Format getImageFormat() const;
     };
 
 }

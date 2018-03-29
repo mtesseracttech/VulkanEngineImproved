@@ -16,7 +16,9 @@ namespace mt
     template<typename T>
     class MaterialCache
     {
-        static_assert(std::is_base_of<AbstractMaterial, T>::value, "Cannot add non-material to material cache (inherit from AbstractMaterial)");
+        static_assert(std::is_base_of<AbstractMaterial, T>::value,
+                      "Cannot add non-material to material cache (inherit from AbstractMaterial)");
+
     private:
         std::map<std::string, T> m_materials;
 
@@ -43,11 +45,11 @@ namespace mt
                     Logger::log("Could not load material: " + p_resourceName, LogError);
                 }
             }
-            else {
+            else
+            {
                 Logger::log("No folder for " + p_resourceName + " exists", LogError);
                 Logger::log("Expected folder: " + AssetLocations::TEXTURES + p_resourceName, LogDebug);
             }
-
 
             //If no asset folder is found or an error occurred while loading a material, return nullptr
             return nullptr;

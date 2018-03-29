@@ -18,10 +18,10 @@ namespace mt
         DepthStencil m_depthStencil;
 
     public:
-        void create(Swapchain p_swapchain);
+        void create(const Swapchain& p_swapchain);
         void destroy();
 
-        vk::RenderPass& getRenderPass();
+        const vk::RenderPass& getRenderPass() const;
     };
 }
 

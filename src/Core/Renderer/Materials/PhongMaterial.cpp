@@ -9,12 +9,16 @@
 
 namespace mt
 {
-    PhongMaterial::PhongMaterial() : m_pipeline(PipelineCreateInfo(VertexLayout({ePosition, eNormal, eUV}),
-                                                                   DescriptorSetLayout({DescriptorSet(0, vk::DescriptorType::eUniformBuffer, vk::ShaderStageFlagBits::eVertex),
-                                                                                        DescriptorSet(1, vk::DescriptorType::eCombinedImageSampler, vk::ShaderStageFlagBits::eFragment)}),
-                                                                   ShaderProgram::loadShader("phong")))
-    {
-    }
+    PhongMaterial::PhongMaterial() : m_pipeline(PipelineCreateInfo(
+            VertexLayout({ePosition, eNormal, eUV}),
+            DescriptorSetLayout({DescriptorSet(0,
+                                               vk::DescriptorType::eUniformBuffer,
+                                               vk::ShaderStageFlagBits::eVertex),
+                                 DescriptorSet(1,
+                                               vk::DescriptorType::eCombinedImageSampler,
+                                               vk::ShaderStageFlagBits::eFragment)}),
+            ShaderProgram::loadShader("phong")))
+    {}
 
     PhongMaterial::~PhongMaterial()
     {
@@ -26,14 +30,13 @@ namespace mt
         Logger::log("Loading phong assets for " + p_assetName);
     }
 
-    void PhongMaterial::initializePipeline(RenderPass p_renderPass)
+    void PhongMaterial::initializePipeline(const RenderPass& p_renderPass)
     {
         m_pipeline.create(p_renderPass.getRenderPass());
     }
 
-    void PhongMaterial::rebuild()
+    PhongMaterial const* const PhongMaterial::load(const std::string& p_assetName)
     {
+        return PhongMaterialLoader::m_cache.load(p_assetName);
     }
-
-
 }

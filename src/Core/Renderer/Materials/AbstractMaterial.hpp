@@ -16,8 +16,10 @@ namespace mt
          * Set up member variables like vertex layout and descriptor layout also set up the pipeline
          */
         AbstractMaterial() = default;
-        ~AbstractMaterial() = default;
 
+        virtual ~AbstractMaterial() = default;
+
+    protected:
         /*
          * Binding assets (textures, etc.) to the pipeline
          */
@@ -26,12 +28,7 @@ namespace mt
         /*
          * Creating the pipeline to be used
          */
-        virtual void initializePipeline(RenderPass p_renderPass) = 0;
-
-        /*
-         * Reloading the shader after it's been initialized before
-         */
-        virtual void rebuild() = 0;
+        virtual void initializePipeline(const RenderPass& p_renderPass) = 0;
     };
 }
 

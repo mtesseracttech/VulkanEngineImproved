@@ -50,10 +50,20 @@ namespace mt
 
     public:
         //User Functionality
+
+        /*
+         * Returns true for a given mouse button approximately for 1 frame (60 fps taken as a base line)
+         */
         static bool enter(MouseButton p_button);
 
+        /*
+         * Returns true as long as the given mouse button is pressed
+         */
         static bool pressed(MouseButton p_button);
 
+        /*
+         * Gets the position of the mouse pointer
+         */
         static glm::vec2 position();
 
     };

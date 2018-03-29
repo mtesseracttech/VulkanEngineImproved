@@ -8,7 +8,7 @@
 namespace mt
 {
 
-    void RenderPass::create(Swapchain p_swapchain)
+    void RenderPass::create(const Swapchain& p_swapchain)
     {
         const auto& device = Display::get().getDevice();
 
@@ -70,7 +70,7 @@ namespace mt
         m_renderPass = device.createRenderPass(renderPassInfo);
     }
 
-    vk::RenderPass& RenderPass::getRenderPass()
+    const vk::RenderPass& RenderPass::getRenderPass() const
     {
         return m_renderPass;
     }

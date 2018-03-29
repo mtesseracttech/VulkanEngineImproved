@@ -173,12 +173,12 @@ namespace mt
         return p_device.createImageView(createInfo);
     }
 
-    const vk::Extent2D Swapchain::getExtent()
+    const vk::Extent2D Swapchain::getExtent() const
     {
         return m_extent;
     }
 
-    const vk::Format Swapchain::getImageFormat()
+    const vk::Format Swapchain::getImageFormat() const
     {
         return m_imageFormat;
     }
