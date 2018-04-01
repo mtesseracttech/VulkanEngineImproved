@@ -21,9 +21,9 @@ namespace mt
 
     void Texture::updateDescriptor()
     {
-        m_desciptorImageInfo.sampler     = m_sampler;
-        m_desciptorImageInfo.imageView   = m_view;
-        m_desciptorImageInfo.imageLayout = m_imageLayout;
+        m_descriptorImageInfo.sampler     = m_sampler;
+        m_descriptorImageInfo.imageView   = m_view;
+        m_descriptorImageInfo.imageLayout = m_imageLayout;
     }
 
     vk::Format Texture::getVulkanFormat(gli::format p_format)
@@ -215,12 +215,26 @@ namespace mt
             case gli::FORMAT_RGBA_ASTC_12X10_SRGB_BLOCK16: return vk::Format::eAstc12x10SrgbBlock;
             case gli::FORMAT_RGBA_ASTC_12X12_UNORM_BLOCK16: return vk::Format::eAstc12x12UnormBlock;
             case gli::FORMAT_RGBA_ASTC_12X12_SRGB_BLOCK16: return vk::Format::eAstc12x12SrgbBlock;
-            default:
-                std::stringstream error;
+            default:std::stringstream error;
                 error << "The following GLI Format not supported (" << p_format << ")";
                 throw std::runtime_error(error.str());
                 break;
         }
+    }
+
+    vk::Image const& const Texture::getImage()
+    {
+        return m_image;
+    }
+
+    vk::Extent2D const& const Texture::getSize()
+    {
+        return m_imageInfo.size;
+    }
+
+    vk::DescriptorImageInfo const& const Texture::getImageDescriptor()
+    {
+        return m_descriptorImageInfo;
     }
 }
 

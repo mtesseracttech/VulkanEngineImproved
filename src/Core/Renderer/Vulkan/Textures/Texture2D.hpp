@@ -11,7 +11,8 @@ namespace mt
 {
     class Texture2D : Texture
     {
-        void load(const std::string& p_filename, vk::ImageUsageFlags p_imageUsage, vk::ImageLayout p_layout, bool p_linear) override;
+    public:
+        void load(const std::string& p_filename, vk::ImageUsageFlags p_imageUsage, vk::ImageLayout p_layout) override;
     };
 }
 

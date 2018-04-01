@@ -28,6 +28,10 @@ namespace mt
     void PhongMaterial::loadAssets(const std::string& p_assetName)
     {
         Logger::log("Loading phong assets for " + p_assetName);
+        
+        std::string assetPath = AssetLocations::TEXTURES + p_assetName + "/diffuse.png";
+
+        m_texture.load(assetPath, vk::ImageUsageFlagBits::eSampled, vk::ImageLayout::eShaderReadOnlyOptimal);
     }
 
     void PhongMaterial::initializePipeline(const RenderPass& p_renderPass)

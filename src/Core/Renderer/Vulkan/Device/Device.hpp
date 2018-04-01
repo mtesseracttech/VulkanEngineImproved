@@ -43,6 +43,14 @@ namespace mt
         SurfaceQueueFamilies m_queueFamilyIndices;
 
         /*
+         * Contains various information about the properties of the physical device and which features were requested to be enabled
+         */
+        struct{
+            vk::PhysicalDeviceProperties properties;
+            vk::PhysicalDeviceFeatures features;
+        } m_deviceInfo;
+
+        /*
          * The command pools that command buffer memory is allocated from
          */
         struct
@@ -96,6 +104,10 @@ namespace mt
         void waitTillIdle();
 
         uint32_t getMemoryType(uint32_t p_typeBits, vk::MemoryPropertyFlags p_properties, vk::Bool32* p_found = nullptr);
+
+        vk::PhysicalDeviceFeatures const & const getEnabledFeatures();
+
+        vk::PhysicalDeviceProperties const & const getProperties();
     };
 }
 

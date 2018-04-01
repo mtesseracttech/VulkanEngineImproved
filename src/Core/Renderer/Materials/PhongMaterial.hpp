@@ -7,6 +7,7 @@
 
 #include <Core/Renderer/Vulkan/RenderPass/RenderPass.hpp>
 #include <Core/Renderer/Vulkan/Pipeline/Pipeline.hpp>
+#include <Core/Renderer/Vulkan/Textures/Texture2D.hpp>
 #include "AbstractMaterial.hpp"
 #include "MaterialCache.hpp"
 
@@ -20,6 +21,8 @@ namespace mt
 
     protected:
         Pipeline m_pipeline;
+
+        Texture2D m_texture;
 
     public:
         PhongMaterial();

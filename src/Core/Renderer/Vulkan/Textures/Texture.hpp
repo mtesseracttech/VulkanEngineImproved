@@ -23,7 +23,7 @@ namespace mt
         vk::ImageView           m_view         = nullptr;
         vk::ImageLayout         m_imageLayout;
         vk::DeviceMemory        m_deviceMemory = nullptr;
-        vk::DescriptorImageInfo m_desciptorImageInfo;
+        vk::DescriptorImageInfo m_descriptorImageInfo;
 
         vk::Sampler m_sampler;
 
@@ -32,7 +32,7 @@ namespace mt
             vk::Extent2D size       = vk::Extent2D(0, 0);
             uint32_t     mipLevels  = 0;
             uint32_t     layerCount = 0;
-        }           m_imageInfo;
+        } m_imageInfo;
 
     protected:
         void updateDescriptor();
@@ -42,10 +42,13 @@ namespace mt
     public:
         void destroy();
 
-        virtual void load(const std::string& p_filename,
-                          vk::ImageUsageFlags p_imageUsage,
-                          vk::ImageLayout p_layout,
-                          bool p_linear) = 0;
+        virtual void load(const std::string& p_filename, vk::ImageUsageFlags p_imageUsage, vk::ImageLayout p_layout) = 0;
+
+        vk::Image const& const getImage();
+
+        vk::DescriptorImageInfo const & const getImageDescriptor();
+
+        vk::Extent2D const& const getSize();
     };
 }
 

@@ -39,8 +39,12 @@ namespace mt
             queueCreateInfoList.push_back(queueCreateInfo);
         }
 
-        vk::PhysicalDeviceFeatures deviceFeatures = {};
+        vk::PhysicalDeviceFeatures deviceFeatures;
         deviceFeatures.samplerAnisotropy = vk::Bool32(true);
+
+        m_deviceInfo.features = deviceFeatures;
+
+        m_deviceInfo.properties = m_physicalDevice.getProperties();
 
         vk::DeviceCreateInfo deviceCreateInfo;
         deviceCreateInfo.enabledExtensionCount   = static_cast<uint32_t>(p_enabledExtensions.size());
@@ -213,5 +217,15 @@ namespace mt
             return 0;
         }
         else throw std::runtime_error("Could not find a matching memory type");
+    }
+
+    vk::PhysicalDeviceFeatures const& const Device::getEnabledFeatures()
+    {
+        return m_deviceInfo.features;
+    }
+
+    vk::PhysicalDeviceProperties const& const Device::getProperties()
+    {
+        return m_deviceInfo.properties;
     }
 }
