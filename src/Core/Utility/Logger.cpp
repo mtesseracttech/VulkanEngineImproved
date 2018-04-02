@@ -14,14 +14,23 @@ namespace mt
         return instance;
     }
 
-    void Logger::printLog(std::string m_prefix, std::string p_message)
+    void Logger::printLog(const std::string& m_prefix, const std::string& p_message)
     {
         std::stringstream output;
         output << "[" << m_prefix << "] " << p_message;
         std::cout << output.str() << std::endl;
     }
 
-    void Logger::log(std::string p_message, LogType p_level)
+    void Logger::printError(const std::string& m_prefix, const std::string& p_message)
+    {
+        //This makes sure that everything printed from cout is done before the cerr is done
+        std::cout << std::flush;
+        std::stringstream output;
+        output << "[" << m_prefix << "] " << p_message;
+        std::cerr << output.str() << std::endl;
+    }
+
+    void Logger::log(const std::string& p_message, LogType p_level)
     {
         Logger logger = get();
 
@@ -37,7 +46,7 @@ namespace mt
                 logger.printLog("Info", p_message);
                 break;
             case LogError:
-                logger.printLog("Error", p_message);
+                logger.printError("Error", p_message);
                 break;
         }
     }

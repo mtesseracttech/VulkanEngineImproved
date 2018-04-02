@@ -56,14 +56,14 @@ set(SOURCE_FILES src/EntryPoint.cpp
         src/Core/Renderer/Vulkan/Pipeline/PipelineCache.hpp
         src/Core/Renderer/Vulkan/Pipeline/PipelineCreateInfo.cpp
         src/Core/Renderer/Vulkan/Pipeline/PipelineCreateInfo.hpp
-        src/Core/Renderer/Vulkan/Pipeline/DescriptorSet.cpp
-        src/Core/Renderer/Vulkan/Pipeline/DescriptorSet.hpp
+        src/Core/Renderer/Vulkan/Pipeline/DescriptorSetComponent.cpp
+        src/Core/Renderer/Vulkan/Pipeline/DescriptorSetComponent.hpp
         src/Core/Renderer/Vulkan/Queue/DeviceQueueFamilies.cpp
         src/Core/Renderer/Vulkan/Queue/DeviceQueueFamilies.hpp
         src/Core/Renderer/Vulkan/Queue/SurfaceQueueFamilies.cpp
         src/Core/Renderer/Vulkan/Queue/SurfaceQueueFamilies.hpp
         src/Core/Renderer/Vulkan/Debug/VulkanDebug.cpp
-        src/Core/Renderer/Vulkan/Debug/VulkanDebug.hpp src/Core/Renderer/Vulkan/Textures/Texture.cpp src/Core/Renderer/Vulkan/Textures/Texture.hpp src/Core/Renderer/Vulkan/Textures/Texture2D.cpp src/Core/Renderer/Vulkan/Textures/Texture2D.hpp)
+        src/Core/Renderer/Vulkan/Debug/VulkanDebug.hpp src/Core/Renderer/Vulkan/Texture/Texture.cpp src/Core/Renderer/Vulkan/Texture/Texture.hpp src/Core/Renderer/Vulkan/Texture/Texture2D.cpp src/Core/Renderer/Vulkan/Texture/Texture2D.hpp src/Core/Renderer/Vulkan/Pipeline/DescriptorSet.cpp src/Core/Renderer/Vulkan/Pipeline/DescriptorSet.hpp src/Core/Renderer/Vulkan/Buffer/Buffer.cpp src/Core/Renderer/Vulkan/Buffer/Buffer.hpp src/Core/Renderer/Vulkan/Buffer/UniformBuffer.cpp src/Core/Renderer/Vulkan/Buffer/UniformBuffer.hpp)
 
 add_executable(VulkanEngineFixed ${SOURCE_FILES})
 

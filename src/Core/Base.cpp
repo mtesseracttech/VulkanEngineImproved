@@ -32,9 +32,7 @@ namespace mt
         auto& window = RenderWindow::get();
         window.create(glm::vec2(1280, 720), false, "Wolfsbane Engine");
         window.setUserPointer(this);
-        window.setWindowSizeCallback(WindowResizedCallback);
-        //glfwSetWindowUserPointer(window.getGlfwWindowHandle(), this);
-        //glfwSetWindowSizeCallback(window)
+        window.setWindowSizeCallback(windowResizedCallback);
     }
 
     void Base::initializeDisplay()
@@ -117,7 +115,7 @@ namespace mt
     void Base::cleanup()
     {
         cleanupRenderer();
-        cleanupDevice();
+        cleanupDisplay();
         cleanupWindow();
     }
 
@@ -127,7 +125,7 @@ namespace mt
         RenderWindow::get().destroy();
     }
 
-    void Base::cleanupDevice()
+    void Base::cleanupDisplay()
     {
         Logger::log("Cleaning up the rendering device");
         Display::get().cleanup();
@@ -143,7 +141,7 @@ namespace mt
         m_renderer.onResized();
     }
 
-    void Base::WindowResizedCallback(GLFWwindow* p_window, int p_width, int p_height)
+    void Base::windowResizedCallback(GLFWwindow* p_window, int p_width, int p_height)
     {
         auto base = reinterpret_cast<Base *>(glfwGetWindowUserPointer(p_window));
         base->onWindowResized();

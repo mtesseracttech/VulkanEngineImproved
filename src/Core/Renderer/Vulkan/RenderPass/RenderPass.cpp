@@ -81,6 +81,8 @@ namespace mt
 
         if(m_renderPass) device.destroyRenderPass(m_renderPass);
 
+        m_renderPass = nullptr;
+
         m_depthStencil.destroy();
     }
 }

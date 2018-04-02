@@ -6,12 +6,14 @@
 int main()
 {
     mt::Base gameBase;
-    try{
+    try
+    {
         gameBase.initialize();
         gameBase.run();
         gameBase.cleanup();
     }
-    catch (std::runtime_error& e){
+    catch (std::runtime_error& e)
+    {
         mt::Logger::log(e.what(), mt::LogError);
     }
 }

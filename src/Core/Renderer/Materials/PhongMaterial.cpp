@@ -11,12 +11,12 @@ namespace mt
 {
     PhongMaterial::PhongMaterial() : m_pipeline(PipelineCreateInfo(
             VertexLayout({ePosition, eNormal, eUV}),
-            DescriptorSetLayout({DescriptorSet(0,
-                                               vk::DescriptorType::eUniformBuffer,
-                                               vk::ShaderStageFlagBits::eVertex),
-                                 DescriptorSet(1,
-                                               vk::DescriptorType::eCombinedImageSampler,
-                                               vk::ShaderStageFlagBits::eFragment)}),
+            DescriptorSetLayout({DescriptorSetComponent(0,
+                                                          vk::DescriptorType::eUniformBuffer,
+                                                          vk::ShaderStageFlagBits::eVertex),
+                                 DescriptorSetComponent(1,
+                                                          vk::DescriptorType::eCombinedImageSampler,
+                                                          vk::ShaderStageFlagBits::eFragment)}),
             ShaderProgram::loadShader("phong")))
     {}
 
@@ -28,8 +28,8 @@ namespace mt
     void PhongMaterial::loadAssets(const std::string& p_assetName)
     {
         Logger::log("Loading phong assets for " + p_assetName);
-        
-        std::string assetPath = AssetLocations::TEXTURES + p_assetName + "/diffuse.png";
+
+        std::string assetPath = AssetLocations::TEXTURES + p_assetName + "/test_base.ktx";
 
         m_texture.load(assetPath, vk::ImageUsageFlagBits::eSampled, vk::ImageLayout::eShaderReadOnlyOptimal);
     }
@@ -42,5 +42,14 @@ namespace mt
     PhongMaterial const* const PhongMaterial::load(const std::string& p_assetName)
     {
         return PhongMaterialLoader::m_cache.load(p_assetName);
+    }
+
+    void PhongMaterial::update(const glm::mat4& p_model, const glm::mat4& p_view, const glm::mat4& p_proj)
+    {
+        m_ubo.model = p_model;
+        m_ubo.view = p_view;
+        m_ubo.proj = p_proj;
+
+        m_uniformBuffer.update(sizeof(m_ubo), 0, &m_ubo);
     }
 }

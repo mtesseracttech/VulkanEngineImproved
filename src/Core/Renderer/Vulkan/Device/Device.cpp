@@ -102,13 +102,19 @@ namespace mt
 
     void Device::destroy()
     {
-        if (m_commandPools.graphics) m_logicalDevice.destroyCommandPool(m_commandPools.graphics);
-        if (m_commandPools.present) m_logicalDevice.destroyCommandPool(m_commandPools.present);
-        if (m_logicalDevice) m_logicalDevice.destroy();
+        if (m_logicalDevice)
+        {
+            if (m_commandPools.graphics) m_logicalDevice.destroyCommandPool(m_commandPools.graphics);
+            if (m_commandPools.present) m_logicalDevice.destroyCommandPool(m_commandPools.present);
+            m_logicalDevice.destroy();
+        }
+
+        m_commandPools.graphics = nullptr;
+        m_commandPools.present  = nullptr;
+        m_logicalDevice = nullptr;
     }
 
-    vk::CommandBuffer
-    Device::createCommandBuffer(vk::CommandBufferLevel p_level, bool p_begin, CommandPoolType p_poolType)
+    vk::CommandBuffer Device::createCommandBuffer(vk::CommandBufferLevel p_level, bool p_begin, CommandPoolType p_poolType)
     {
         assert(m_logicalDevice);
 
@@ -186,8 +192,8 @@ namespace mt
     {
         switch (p_type)
         {
-            case GraphicsQueue:return m_queues.graphics;
-            case PresentQueue:return m_queues.present;
+            case GraphicsQueue: return m_queues.graphics;
+            case PresentQueue: return m_queues.present;
         }
     }
 
@@ -219,12 +225,12 @@ namespace mt
         else throw std::runtime_error("Could not find a matching memory type");
     }
 
-    vk::PhysicalDeviceFeatures const& const Device::getEnabledFeatures()
+    const vk::PhysicalDeviceFeatures& Device::getEnabledFeatures()
     {
         return m_deviceInfo.features;
     }
 
-    vk::PhysicalDeviceProperties const& const Device::getProperties()
+    const vk::PhysicalDeviceProperties& Device::getProperties()
     {
         return m_deviceInfo.properties;
     }

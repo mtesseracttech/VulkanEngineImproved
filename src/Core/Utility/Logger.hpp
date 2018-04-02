@@ -35,12 +35,14 @@ namespace mt
         ~Logger() = default;
 
 
-        void printLog(std::string m_prefix, std::string p_message);
+        void printLog(const std::string& m_prefix, const std::string& p_message);
+
+        void printError(const std::string& m_prefix, const std::string& p_message);
 
         static Logger& get();
 
     public:
-        static void log(std::string p_message, LogType p_level = LogInfo);
+        static void log(const std::string& p_message, LogType p_level = LogInfo);
 
         static void setLogLevel(LogLevel p_level);
 

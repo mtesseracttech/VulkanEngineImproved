@@ -38,7 +38,7 @@ namespace mt
 
         void cleanupWindow();
 
-        void cleanupDevice();
+        void cleanupDisplay();
 
     public:
         void initialize();
@@ -49,7 +49,7 @@ namespace mt
 
         void cleanupRenderer();
 
-        static void WindowResizedCallback(GLFWwindow* p_window, int p_width, int p_height);
+        static void windowResizedCallback(GLFWwindow* p_window, int p_width, int p_height);
 
         void onWindowResized();
     };

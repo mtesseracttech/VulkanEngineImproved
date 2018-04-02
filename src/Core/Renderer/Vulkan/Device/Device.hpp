@@ -105,9 +105,9 @@ namespace mt
 
         uint32_t getMemoryType(uint32_t p_typeBits, vk::MemoryPropertyFlags p_properties, vk::Bool32* p_found = nullptr);
 
-        vk::PhysicalDeviceFeatures const & const getEnabledFeatures();
+        const vk::PhysicalDeviceFeatures& getEnabledFeatures();
 
-        vk::PhysicalDeviceProperties const & const getProperties();
+        const vk::PhysicalDeviceProperties& getProperties();
     };
 }
 

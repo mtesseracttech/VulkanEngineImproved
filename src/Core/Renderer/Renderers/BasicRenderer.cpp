@@ -24,7 +24,7 @@ namespace mt
         Logger::log("Creating the Render Pass");
         m_renderPass.create(m_swapchain);
 
-        const PhongMaterial* testMaterial = PhongMaterial::load("test");
+        const PhongMaterial* material = PhongMaterial::load("test");
     }
 
     void BasicRenderer::destroy()

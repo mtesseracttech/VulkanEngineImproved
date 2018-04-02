@@ -11,6 +11,8 @@ namespace mt
                                                                             vk::ShaderStageFlags p_shaderStage,
                                                                             vk::DescriptorType p_type)
     {
+        ++m_descriptorCount[p_type];
+
         vk::DescriptorSetLayoutBinding layoutBinding;
         layoutBinding.binding            = p_binding;
         layoutBinding.descriptorCount    = 1;
@@ -20,12 +22,12 @@ namespace mt
         return layoutBinding;
     }
 
-    const vk::DescriptorSetLayout DescriptorSetLayout::getLayout()
+    const vk::DescriptorSetLayout DescriptorSetLayout::getLayout()const
     {
         return m_layout;
     }
 
-    DescriptorSetLayout::DescriptorSetLayout(const std::vector<DescriptorSet>& p_descriptorSets)
+    DescriptorSetLayout::DescriptorSetLayout(const std::vector<DescriptorSetComponent>& p_descriptorSets)
     {
         const auto& device = Display::get().getDevice();
 
@@ -41,6 +43,11 @@ namespace mt
         layoutInfo.pBindings    = layoutBindings.data();
 
         m_layout = device.createDescriptorSetLayout(layoutInfo);
+    }
+
+    const std::map<vk::DescriptorType, uint32_t>& DescriptorSetLayout::getDescriptorCount() const
+    {
+        return m_descriptorCount;
     }
 }
 

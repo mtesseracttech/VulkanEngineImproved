@@ -1,24 +1,30 @@
 //
-// Created by MTesseracT on 24-3-2018.
+// Created by MTesseracT on 2-4-2018.
 //
 
 #ifndef VULKANENGINEFIXED_DESCRIPTORSET_HPP
 #define VULKANENGINEFIXED_DESCRIPTORSET_HPP
 
+#include "DescriptorSetLayout.hpp"
 
-#include <vulkan/vulkan.hpp>
-
-namespace mt
-{
-    struct DescriptorSet
+namespace mt{
+    class DescriptorSet
     {
-        DescriptorSet(uint32_t p_binding, vk::DescriptorType p_type, vk::ShaderStageFlags p_shaderStage);
+        vk::DescriptorPool m_descriptorPool = nullptr;
 
-        uint32_t             m_binding;
-        vk::DescriptorType   m_type;
-        vk::ShaderStageFlags m_shaderStage;
+        std::vector<vk::DescriptorSet> m_descriptorSets;
+
+    private:
+        void createDescriptorPool(const vk::Device& p_device, const std::vector<DescriptorSetLayout>& p_layouts);
+        void allocateDescriptorSets(const vk::Device& p_device, const std::vector<DescriptorSetLayout>& p_layouts);
+        void updateDescriptorSets(const vk::Device& p_device);
+
+    public:
+
+        void create(const std::vector<DescriptorSetLayout>& p_layouts);
     };
 }
+
 
 
 #endif //VULKANENGINEFIXED_DESCRIPTORSET_HPP

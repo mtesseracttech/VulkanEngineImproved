@@ -195,6 +195,8 @@ namespace mt
         m_imageViews.clear();
 
         if (m_swapchain) device.destroySwapchainKHR(m_swapchain);
+
+        m_swapchain = nullptr;
     }
 
 }

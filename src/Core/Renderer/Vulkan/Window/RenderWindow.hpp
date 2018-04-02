@@ -33,10 +33,7 @@ namespace mt
         /*
          * Destructor
          */
-        ~RenderWindow()
-        {
-            if (m_window != nullptr) destroy();
-        };
+        ~RenderWindow() =default;
 
         /*
          * Singleton instance

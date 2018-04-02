@@ -94,9 +94,8 @@ namespace mt
         {
             auto& instance = Display::get().getVulkanInstance();
             instance.destroySurfaceKHR(m_surface);
-            m_surface = nullptr;
         }
-
+        m_surface = nullptr;
     }
 
     glm::ivec2 RenderWindow::getSize()
